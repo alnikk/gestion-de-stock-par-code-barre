@@ -1,7 +1,5 @@
 package com.iutval.projetT.gestiondesstocks;
 
-import java.io.File;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;

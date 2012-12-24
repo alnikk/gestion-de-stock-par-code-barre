@@ -23,7 +23,7 @@ public class WebViewActivity extends Activity
 	    setContentView(webview);
 	    
 	    //WebView mWebView = (WebView) findViewById(R.id.webView1);
-	    webview.loadUrl(url/* + "/" + refArt*/);
+	    webview.loadUrl(url + "/" + refArt);
 	}
 	
 	@Override

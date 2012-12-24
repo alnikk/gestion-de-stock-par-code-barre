@@ -6,8 +6,6 @@ import java.io.IOException;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -46,9 +44,9 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback
 			camera.setPreviewDisplay(this.holder);
 			camera.setDisplayOrientation(90);
 
-			Camera.Parameters params = camera.getParameters(); 
+			/*Camera.Parameters params = camera.getParameters(); 
 
-			/*if (params.getMaxNumMeteringAreas() > 0)
+			if (params.getMaxNumMeteringAreas() > 0)
 			{
 			    List<Camera.Area> meteringAreas = new ArrayList<Camera.Area>();
 
@@ -104,10 +102,10 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback
 	@Override
 	public void onDraw(Canvas canvas) 
 	{
-		super.onDraw(canvas);
+		/*super.onDraw(canvas);
 
 		Paint p = new Paint(Color.RED);
 		canvas.drawText("PREVIEW", canvas.getWidth() / 2,
-				canvas.getHeight() / 2, p);
+				canvas.getHeight() / 2, p);*/
 	}
 }
