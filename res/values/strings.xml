@@ -4,5 +4,7 @@
     <string name="app_name">Gestion Des Stocks</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="bt_capture">Prendre en Photo</string>
+    <string name="title_activity_web_view">WebView</string>
 
 </resources>
