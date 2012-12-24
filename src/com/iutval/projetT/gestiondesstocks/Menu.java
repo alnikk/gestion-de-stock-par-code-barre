@@ -17,54 +17,53 @@ import android.hardware.Camera;
 public class Menu extends Activity 
 {
 	//******************** Constant ********************
-	
+
 	private final static int LENGHT_TOAST = 5;
-	
-	
+
+
 	//******************** Variable ********************
-	
+
 	/**
 	 * The instance of camera to use
 	 */
 	private Camera camera = null;
-	
+
 	/**
 	 * The preview for drawing rectangle on it, and so take barCode in this area
 	 */
 	private Preview preview = null;	
-	
+
 	//******************** State ********************
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		
+
 		// Boot Screen
 		setContentView(R.layout.activity_menu); // TODO Do boot screen
-		
+	}
+
+	@Override
+	protected void onResume() 
+	{
+		super.onResume();
+
 		// Test if there's camera on the device
 		if(this.checkCameraHardware(this.getApplicationContext()))
 		{
-			this.CreateCameraInstance();
-			
-			/////////////////// BUG !//////////////			
-			this.preview = new Preview(this, this.camera);
-			
-			FrameLayout view = (FrameLayout) findViewById(R.id.camera_preview);
-	        view.addView(this.preview);
-			///////////////////
+			this.createCameraInstance();
+			this.addPreview();
 		}
 		else
 		{
 			Toast.makeText(getApplicationContext(),
-							"Your device doesn't support camera",
-							LENGHT_TOAST).show();
+					"Your device doesn't support camera",
+					LENGHT_TOAST).show();
 		}
 	}
-	
 	//******************** Method ********************
-	
+
 	/**
 	 * Check if the device have camera.
 	 * @param context 
@@ -72,23 +71,33 @@ public class Menu extends Activity
 	 */
 	private boolean checkCameraHardware(Context context) 
 	{
-	    if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA))
-	        return true; 
-	    return false;
+		if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA))
+			return true; 
+		return false;
 	}	
-	
+
 	/** 
 	 * A safe way to get an instance of the Camera object. 
 	 */
-	private void CreateCameraInstance()
+	private void createCameraInstance()
 	{
-	    try 
-	    {
-	        this.camera = Camera.open();
-	    }
-	    catch (Exception e)
-	    {
-	        // Camera is not available (in use or does not exist)
-	    }
+		try 
+		{
+			this.camera = Camera.open();
+		}
+		catch (Exception e)
+		{
+			// Camera is not available (in use or does not exist)
+		}
+	}
+
+	private void addPreview()
+	{			
+		this.preview = new Preview(this, this.camera);
+
+		FrameLayout view = (FrameLayout) findViewById(R.id.camera_preview);
+		/////////////////// BUG !//////////////
+		view.addView(this.preview);
+		///////////////////
 	}
 }
