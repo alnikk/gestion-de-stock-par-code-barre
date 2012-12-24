@@ -1,14 +1,10 @@
 package com.iutval.projetT.gestiondesstocks;
 
-import java.io.File;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 
@@ -36,8 +32,6 @@ public class Menu extends Activity
 	 * The preview for drawing rectangle on it, and so take barCode in this area
 	 */
 	private Preview preview = null;	
-	
-	private CamPicture pic = null;
 
 	//******************** State ********************
 
@@ -48,8 +42,6 @@ public class Menu extends Activity
 
 		// Boot Screen
 		setContentView(R.layout.activity_menu); // TODO Do boot screen
-		
-		this.pic = new CamPicture();
 	}
 
 	@Override
@@ -70,42 +62,6 @@ public class Menu extends Activity
 					LENGHT_TOAST).show();
 		}
 	}
-
-	@Override
-	protected void onStop() 
-	{
-		super.onStop();
-		
-		//camera.stopPreview();
-		//camera.release();
-	}
-
-	//*********************** Button *********************
-
-	/**
-	 * This method is called by pushing button on the layout.
-	 * @param view
-	 */
-	public void capture(View view)
-	{
-		byte[] photo;
-		int refArt = 0;
-
-		camera.takePicture(null, null, this.pic);
-		photo = this.pic.getData();
-
-		// TODO Send it to algorithm 
-		// refArt = decode(photo);
-
-
-		Intent intent = new Intent(this, WebViewActivity.class);
-		intent.putExtra("refArt", refArt);
-		startActivity(intent);
-		
-		//camera.stopPreview();
-		//camera.release();
-	}
-
 	//******************** Method ********************
 
 	/**
@@ -114,8 +70,10 @@ public class Menu extends Activity
 	 * @return Return true if device have camera, else otherwise. 
 	 */
 	private boolean checkCameraHardware(Context context) 
-	{ 
-		return (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA));
+	{
+		if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA))
+			return true; 
+		return false;
 	}	
 
 	/** 
@@ -138,6 +96,8 @@ public class Menu extends Activity
 		this.preview = new Preview(this, this.camera);
 
 		FrameLayout view = (FrameLayout) findViewById(R.id.camera_preview);
+		/////////////////// BUG !//////////////
 		view.addView(this.preview);
+		///////////////////
 	}
 }

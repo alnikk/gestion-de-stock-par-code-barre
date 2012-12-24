@@ -1,113 +1,93 @@
 package com.iutval.projetT.gestiondesstocks;
 
 import java.io.IOException;
-
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.hardware.Camera;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 @SuppressLint("ViewConstructor")
 public class Preview extends SurfaceView implements SurfaceHolder.Callback 
 {
-
-	private SurfaceHolder holder;
-
-	private Camera camera;
-
-	@SuppressWarnings("deprecation")
+	
+    private SurfaceHolder holder;
+    
+    private Camera camera;
+    
+    @SuppressWarnings("deprecation")
 	public Preview(Context context, Camera camera) 
-	{
-		super(context);
+    {
+        super(context);
+        
+        this.camera = camera;
 
-		this.camera = camera;
+        // Install a SurfaceHolder. Callback so we get notified when the
+        // underlying surface is created and destroyed.
+        this.holder = getHolder();
+        this.holder.setSizeFromLayout();
+        this.holder.addCallback(this);
 
-		// Install SurfaceHolder
-		this.holder = getHolder();
-		this.holder.setSizeFromLayout();
-		this.holder.addCallback(this);
+        // deprecated setting, but required on Android versions prior to 3.0
+        this.holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);   
+    }
 
-		// needed prior to 3.0
-		this.holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-		
-		setFocusable(true);
-	}
+    public void surfaceCreated(SurfaceHolder holder) 
+    {
+        // The Surface has been created, now tell the camera where to draw the preview.
+        try 
+        {	
+        	camera.setPreviewDisplay(this.holder);
+        	camera.startPreview();
+        }
+        catch (IOException e) 
+        {
+            //Log.d(TAG, "Error setting camera preview: " + e.getMessage());
+        	Log.d("ASSERT", "Error setting camera preview: " + e.getMessage());
+        	Log.wtf("CAMERA", "Err : " + e.getStackTrace() + "\n\n\n\n" + e.getMessage());
+        }
+    }
 
-	public void surfaceCreated(SurfaceHolder holder) 
-	{
-		// Draw preview
-		try 
-		{	
-			camera.setPreviewDisplay(this.holder);
-			camera.setDisplayOrientation(90);
+    public void surfaceDestroyed(SurfaceHolder holder) 
+    {
+        // empty. Take care of releasing the Camera preview in your activity.
+    }
 
-			Camera.Parameters params = camera.getParameters(); 
+    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) 
+    {
+        // If your preview can change or rotate, take care of those events here.
+        // Make sure to stop the preview before resizing or reformatting it.
 
-			/*if (params.getMaxNumMeteringAreas() > 0)
-			{
-			    List<Camera.Area> meteringAreas = new ArrayList<Camera.Area>();
+        if (holder.getSurface() == null)
+        {
+          // preview surface does not exist
+          return;
+        }
 
-			    Rect areaRect1 = new Rect(-100, -100, 100, 100);    // specify an area in center of image
-			    meteringAreas.add(new Camera.Area(areaRect1, 600)); // set weight to 60%
-			    Rect areaRect2 = new Rect(800, -1000, 1000, -800);  // specify an area in upper right of image
-			    meteringAreas.add(new Camera.Area(areaRect2, 400)); // set weight to 40%
-			    params.setMeteringAreas(meteringAreas);			  
-			}
+        // stop preview before making changes
+        try 
+        {
+            camera.stopPreview();
+        } 
+        catch (Exception e)
+        {
+          // ignore: tried to stop a non-existent preview
+        }
 
-			camera.setParameters(params);*/
+        // set preview size and make any resize, rotate or
+        // reformatting changes here
 
-			camera.startPreview();
-		}
-		catch (IOException e) 
-		{  }
-	}
+        // start preview with new settings
+        try 
+        {
+            camera.setPreviewDisplay(holder);
+            camera.startPreview();
 
-	public void surfaceDestroyed(SurfaceHolder holder) 
-	{    }
-
-	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) 
-	{
-		// If your preview can change or rotate, take care of those events here.
-		// Make sure to stop the preview before resizing or reformatting it.
-
-		if (holder.getSurface() == null)
-		{
-			return;
-		}
-
-		try 
-		{
-			camera.stopPreview();
-		} 
-		catch (Exception e)
-		{    }
-
-		// set preview size and make any resize, rotate or
-		// reformatting changes here
-
-		// start preview with new settings
-		try 
-		{
-			camera.setPreviewDisplay(holder);
-			camera.startPreview();
-
-		} 
-		catch (Exception e)
-		{    }
-	}
-
-	@Override
-	public void onDraw(Canvas canvas) 
-	{
-		super.onDraw(canvas);
-
-		Paint p = new Paint(Color.RED);
-		canvas.drawText("PREVIEW", canvas.getWidth() / 2,
-				canvas.getHeight() / 2, p);
-	}
+        } 
+        catch (Exception e)
+        {
+            //Log.d(TAG, "Error starting camera preview: " + e.getMessage());
+        }
+    }
 }

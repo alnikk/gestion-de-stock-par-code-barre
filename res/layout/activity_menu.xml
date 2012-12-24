@@ -9,14 +9,5 @@
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
     />
-
-    <Button
-        android:id="@+id/capture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/bt_capture"
-        android:onClick="capture" />
     
 </RelativeLayout>
