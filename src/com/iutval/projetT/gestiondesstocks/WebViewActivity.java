@@ -8,7 +8,7 @@ import android.webkit.WebView;
 
 public class WebViewActivity extends Activity 
 {
-	private static final String url = "www.facebook.com";
+	private static final String url = "http://nuitinfo2012.iut-valence.fr/eq2/asobo/script.php?";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -19,11 +19,10 @@ public class WebViewActivity extends Activity
 		Intent intent = getIntent();
 	    int refArt = intent.getExtras().getInt("refArt");
 	    
-	    WebView webview = new WebView(this);
-	    setContentView(webview);
+	    WebView webView = (WebView) findViewById(R.id.webview);
 	    
-	    //WebView mWebView = (WebView) findViewById(R.id.webView1);
-	    webview.loadUrl(url + "/" + refArt);
+	    webView.getSettings().setJavaScriptEnabled(true);
+	    webView.loadUrl(url + "/" + refArt);
 	}
 	
 	@Override
