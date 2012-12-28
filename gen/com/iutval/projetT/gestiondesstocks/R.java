@@ -14,25 +14,42 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int camera_preview=0x7f070000;
-        public static final int capture=0x7f070001;
-        public static final int menu_settings=0x7f070003;
-        public static final int webview=0x7f070002;
+        public static final int add=0x7f070002;
+        public static final int camera_preview=0x7f070008;
+        public static final int capture=0x7f070009;
+        public static final int del=0x7f070003;
+        public static final int menu_settings=0x7f07000b;
+        public static final int nouveau=0x7f070004;
+        public static final int radioChoix=0x7f070001;
+        public static final int suppresion=0x7f070006;
+        public static final int valAction=0x7f070007;
+        public static final int value=0x7f070000;
+        public static final int voir=0x7f070005;
+        public static final int webview=0x7f07000a;
     }
     public static final class layout {
-        public static final int activity_menu=0x7f030000;
-        public static final int activity_web_view=0x7f030001;
+        public static final int activity_choix_action=0x7f030000;
+        public static final int activity_photo=0x7f030001;
+        public static final int activity_web_view=0x7f030002;
     }
     public static final class menu {
-        public static final int activity_menu=0x7f060000;
-        public static final int activity_web_view=0x7f060001;
+        public static final int activity_choix_action=0x7f060000;
+        public static final int activity_menu=0x7f060001;
+        public static final int activity_web_view=0x7f060002;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
         public static final int bt_capture=0x7f040003;
+        public static final int bt_valAction=0x7f040004;
         public static final int hello_world=0x7f040001;
         public static final int menu_settings=0x7f040002;
-        public static final int title_activity_web_view=0x7f040004;
+        public static final int rd_add=0x7f040005;
+        public static final int rd_del=0x7f040006;
+        public static final int rd_new=0x7f040007;
+        public static final int rd_remove=0x7f040008;
+        public static final int rd_see=0x7f040009;
+        public static final int title_activity_choix_action=0x7f04000b;
+        public static final int title_activity_web_view=0x7f04000a;
     }
     public static final class style {
         /** 

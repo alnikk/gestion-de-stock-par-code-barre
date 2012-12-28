@@ -5,10 +5,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 public class WebViewActivity extends Activity 
 {
-	private static final String url = "http://nuitinfo2012.iut-valence.fr/eq2/asobo/script.php?";
+	//private static final String url = "http://alexgus.no-ip.info/android/script.php";
+	private static final String url = "http://192.168.1.20/android/script.php?";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -18,11 +20,14 @@ public class WebViewActivity extends Activity
 		
 		Intent intent = getIntent();
 	    int refArt = intent.getExtras().getInt("refArt");
+	    String act = intent.getExtras().getString("act");
+	    int qte = intent.getExtras().getInt("qte");
 	    
 	    WebView webView = (WebView) findViewById(R.id.webview);
 	    
 	    webView.getSettings().setJavaScriptEnabled(true);
-	    webView.loadUrl(url + "/" + refArt);
+	    webView.loadUrl(url + "id=" + 1 + "&action=" + act + "&qte=" + qte);
+	    Toast.makeText(getApplicationContext(), url + "id=" + 1 + "&action=" + act + "&qte=" + qte, 1000).show();
 	}
 	
 	@Override

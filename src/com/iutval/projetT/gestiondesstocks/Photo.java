@@ -16,7 +16,7 @@ import android.hardware.Camera;
  * It detects camera, and launch it for identifying barCode.
  * @author Alexandre Guyon
  */
-public class Menu extends Activity 
+public class Photo extends Activity 
 {
 	//******************** Constant ********************
 
@@ -45,7 +45,7 @@ public class Menu extends Activity
 		super.onCreate(savedInstanceState);
 
 		// Boot Screen
-		setContentView(R.layout.activity_menu); // TODO Do boot screen
+		setContentView(R.layout.activity_photo); // TODO Do boot screen
 		
 		this.pic = new CamPicture();
 	}
@@ -94,9 +94,9 @@ public class Menu extends Activity
 
 		// TODO Send it to algorithm 
 		// refArt = decode(photo);
+		refArt = (int) (Math.random() * 10);
 
-
-		Intent intent = new Intent(this, WebViewActivity.class);
+		Intent intent = new Intent(this, ChoixAction.class);
 		intent.putExtra("refArt", refArt);
 		startActivity(intent);
 		
@@ -124,6 +124,7 @@ public class Menu extends Activity
 		try 
 		{
 			this.camera = Camera.open();
+			//this.camera.enableShutterSound(false);
 		}
 		catch (Exception e)
 		{
