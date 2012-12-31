@@ -10,24 +10,32 @@ import android.widget.Toast;
 public class WebViewActivity extends Activity 
 {
 	//private static final String url = "http://alexgus.no-ip.info/android/script.php";
+	/**
+	 * Script's address. 
+	 */
 	private static final String url = "http://192.168.1.20/android/script.php?";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		// Initialization
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_web_view);
 		
+		// Get arguments
 		Intent intent = getIntent();
 	    int refArt = intent.getExtras().getInt("refArt");
 	    String act = intent.getExtras().getString("act");
 	    int qte = intent.getExtras().getInt("qte");
 	    
+	    // Load URL
 	    WebView webView = (WebView) findViewById(R.id.webview);
 	    
 	    webView.getSettings().setJavaScriptEnabled(true);
-	    webView.loadUrl(url + "id=" + 1 + "&action=" + act + "&qte=" + qte);
-	    Toast.makeText(getApplicationContext(), url + "id=" + 1 + "&action=" + act + "&qte=" + qte, 1000).show();
+	    webView.loadUrl(url + "id=" + refArt + "&action=" + act + "&qte=" + qte);
+	    
+	    // TODO Debug
+	    Toast.makeText(getApplicationContext(), url + "id=" + refArt + "&action=" + act + "&qte=" + qte, Toast.LENGTH_LONG).show();
 	}
 	
 	@Override

@@ -35,6 +35,9 @@ public class Photo extends Activity
 	 */
 	private Preview preview = null;	
 	
+	/**
+	 * The pictures took with camera
+	 */
 	private CamPicture pic = null;
 
 	//******************** State ********************
@@ -42,9 +45,8 @@ public class Photo extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
+		// Initialization
 		super.onCreate(savedInstanceState);
-
-		// Boot Screen
 		setContentView(R.layout.activity_photo); // TODO Do boot screen
 		
 		this.pic = new CamPicture();
@@ -73,7 +75,7 @@ public class Photo extends Activity
 	protected void onStop() 
 	{
 		super.onStop();
-		
+		// FIXME No need to close camera ???
 		//camera.stopPreview();
 		//camera.release();
 	}
@@ -86,22 +88,23 @@ public class Photo extends Activity
 	 */
 	public void capture(View view)
 	{
+		// Variable
 		byte[] photo;
 		int refArt = 0;
 
+		// Took photo
 		camera.takePicture(null, null, this.pic);
 		photo = this.pic.getData();
 
-		// TODO Send it to algorithm 
+		// Send it to algorithm 
 		// refArt = decode(photo);
 		refArt = (int) (Math.random() * 10);
+		Toast.makeText(getApplicationContext(), "id = " + refArt, Toast.LENGTH_SHORT).show(); // TODO Debug
 
+		// Gives argument
 		Intent intent = new Intent(this, ChoixAction.class);
 		intent.putExtra("refArt", refArt);
 		startActivity(intent);
-		
-		//camera.stopPreview();
-		//camera.release();
 	}
 
 	//******************** Method ********************
@@ -124,7 +127,7 @@ public class Photo extends Activity
 		try 
 		{
 			this.camera = Camera.open();
-			//this.camera.enableShutterSound(false);
+			//this.camera.enableShutterSound(false); // API 17 only
 		}
 		catch (Exception e)
 		{
@@ -132,6 +135,9 @@ public class Photo extends Activity
 		}
 	}
 
+	/**
+	 * Allow to create camera's preview on the frame layout surface
+	 */
 	private void addPreview()
 	{			
 		this.preview = new Preview(this, this.camera);

@@ -10,12 +10,22 @@ import android.hardware.Camera;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+/**
+ * It create preview surface for the camera
+ * 
+ * @author alexandre
+ */
 @SuppressLint("ViewConstructor")
 public class Preview extends SurfaceView implements SurfaceHolder.Callback 
 {
-
+	/**
+	 * Container of the surface
+	 */
 	private SurfaceHolder holder;
 
+	/**
+     * The camera instance
+     */
 	private Camera camera;
 
 	@SuppressWarnings("deprecation")
@@ -66,7 +76,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback
 	}
 
 	public void surfaceDestroyed(SurfaceHolder holder) 
-	{    }
+	{}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) 
 	{
@@ -99,6 +109,9 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback
 		{    }
 	}
 
+	/**
+	 * Draw on preview
+	 */
 	@Override
 	public void onDraw(Canvas canvas) 
 	{
