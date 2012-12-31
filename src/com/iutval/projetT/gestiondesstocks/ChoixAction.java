@@ -1,25 +1,8 @@
 package com.iutval.projetT.gestiondesstocks;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.RadioButton;
@@ -45,11 +28,10 @@ public class ChoixAction extends Activity
 	 */
 	private int qte = 0;
 
-	//private static final String url = "http://alexgus.no-ip.info/android/script.php";
 	/**
-	 * Script's address. 
+	 * Thread for handle JSON informations in databae
 	 */
-	private static final String URL = "http://192.168.1.20/android/script.php?";
+	JSONThread getJSON;
 
 	//**************** State *********************
 
@@ -59,13 +41,14 @@ public class ChoixAction extends Activity
 		// Initializations
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_choix_action);
-
+		
 		// Get argument
 		Intent intent = getIntent();
 		this.refArt = intent.getExtras().getInt("refArt");
 
-		// Get informations about item for handle error
-		this.getInfoJson(this.readJsonURL(URL));
+		// Run thread for handle infromations in database
+		getJSON = new JSONThread(this.refArt);
+		getJSON.start();		
 	}
 
 	@Override
@@ -88,50 +71,62 @@ public class ChoixAction extends Activity
 		Action act = null;
 		boolean ok = false;
 
+		// Wait for informations
+		try 
+		{
+			this.getJSON.join();
+		}
+		catch (InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		this.exist = this.getJSON.isExist();
+		this.qte = this.getJSON.getQte();
+		
 		TextView text = (TextView) findViewById(R.id.value);
 		String qte = text.getText().toString();
 
 		RadioButton radiobt = (RadioButton) findViewById(((RadioGroup) findViewById(R.id.radioChoix)).getCheckedRadioButtonId());
-
-		if(radiobt.getText().toString().equals("Ajouter") && this.exist)
+		
+		
+		if(this.exist)
 		{
-			act = Action.ADD;
-			ok = true;
+			if(radiobt.getText().toString().equals("Ajouter"))
+			{
+				act = Action.ADD;
+				ok = true;
+			}
+			if(radiobt.getText().toString().equals("Suppression"))
+			{
+				act = Action.DELETE;
+				ok = true;
+			}
+			if(radiobt.getText().toString().equals("Consulter"))
+			{
+				act = Action.SEE;
+				ok = true;
+			}	
+			if(radiobt.getText().toString().equals("Retrait") && this.qte >= Integer.parseInt(qte))
+			{
+				act = Action.REMOVAL;
+				ok = true;
+			}
+			if(radiobt.getText().toString().equals("Retrait") && this.qte < Integer.parseInt(qte))
+				Toast.makeText(getApplicationContext(),
+						"Cet élément n'existe pas ou vous essayer d'en enlever une quantité trop importante",
+						Toast.LENGTH_LONG).show();
 		}
 		else
-			Toast.makeText(getApplicationContext(), "Cet élément n'existe pas", Toast.LENGTH_LONG).show();
-		if(radiobt.getText().toString().equals("Retrait") && this.exist && this.qte >= Integer.parseInt(qte))
 		{
-			act = Action.REMOVAL;
-			ok = true;
+			if(radiobt.getText().toString().equals("Nouveau"))
+			{
+				act = Action.NEW;
+				ok = true;
+			}
+			else
+				Toast.makeText(getApplicationContext(), "Cette référence n'existe pas", Toast.LENGTH_LONG).show();
 		}
-		else
-			Toast.makeText(getApplicationContext(), "Cet élément n'existe pas ou vous essayer d'en enlever une quantité trop importante"
-					, Toast.LENGTH_LONG).show();
-		if(radiobt.getText().toString().equals("Nouveau") && !this.exist)
-		{
-			act = Action.NEW;
-			ok = true;
-		}
-		else
-			Toast.makeText(getApplicationContext(), "Cet élément existe déjà !", Toast.LENGTH_LONG).show();
-		if(radiobt.getText().toString().equals("Suppression") && this.exist)
-		{
-			act = Action.DELETE;
-			ok = true;
-		}
-		else
-			Toast.makeText(getApplicationContext(), "Cet élément n'existe pas", Toast.LENGTH_LONG).show();
-		if(radiobt.getText().toString().equals("Consulter") && this.exist)
-		{
-			act = Action.SEE;
-			ok = true;
-		}
-		else
-			Toast.makeText(getApplicationContext(), "Cet élément n'existe pas", Toast.LENGTH_LONG).show();
-
-		if(act == null)
-			act = Action.SEE;
 		
 		if(ok)
 		{
@@ -140,65 +135,6 @@ public class ChoixAction extends Activity
 			intent.putExtra("act", act.toString().toLowerCase());
 			intent.putExtra("qte", qte);
 			startActivity(intent);
-		}
-	}
-
-	//***************** Method *******************
-
-	private String readJsonURL(String url)
-	{
-		// Variable
-		StringBuilder builder = new StringBuilder();
-		HttpClient client = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(url);
-		String line;
-
-		try 
-		{
-			// Request server
-			HttpResponse response = client.execute(httpGet);
-			StatusLine statusLine = response.getStatusLine();
-			if (statusLine.getStatusCode() == 200) // Test if the answer is positive 
-			{
-				// Get stream from server
-				HttpEntity entity = response.getEntity();
-				InputStream content = entity.getContent();
-				BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-				while ((line = reader.readLine()) != null)
-					builder.append(line);
-			}
-			else 
-				Log.e(ChoixAction.class.toString(), "Failed to download file");
-		}
-		catch (ClientProtocolException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-		// Return the Json String
-		return builder.toString();
-	}
-
-	private void getInfoJson(String json)
-	{
-		try 
-		{
-			JSONArray jsonArray = new JSONArray(json);
-			if(!jsonArray.isNull(0))
-			{
-				this.exist = true;
-				JSONObject jsonObject = jsonArray.getJSONObject(0); // There's only one object
-				this.qte = jsonObject.getInt("valeur");
-			}
-			else
-				this.exist = false;
-		}
-		catch (JSONException e) 
-		{
-			e.printStackTrace();
 		}
 	}
 }

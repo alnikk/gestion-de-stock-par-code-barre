@@ -49,7 +49,7 @@ public class Photo extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_photo); // TODO Do boot screen
 		
-		this.pic = new CamPicture();
+		//this.pic = new CamPicture();
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class Photo extends Activity
 		super.onResume();
 
 		// Test if there's camera on the device
-		if(this.checkCameraHardware(this.getApplicationContext()))
+		/*if(this.checkCameraHardware(this.getApplicationContext()))
 		{
 			this.createCameraInstance();
 			this.addPreview();
@@ -68,7 +68,7 @@ public class Photo extends Activity
 			Toast.makeText(getApplicationContext(),
 					"Your device doesn't support camera",
 					LENGHT_TOAST).show();
-		}
+		}*/
 	}
 
 	@Override
@@ -93,8 +93,8 @@ public class Photo extends Activity
 		int refArt = 0;
 
 		// Took photo
-		camera.takePicture(null, null, this.pic);
-		photo = this.pic.getData();
+		//camera.takePicture(null, null, this.pic);
+		//photo = this.pic.getData();
 
 		// Send it to algorithm 
 		// refArt = decode(photo);
