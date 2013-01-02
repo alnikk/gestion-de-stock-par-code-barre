@@ -4,65 +4,60 @@
     android:layout_height="match_parent"
     tools:context=".ChoixAction" >
 
-    <EditText
-        android:id="@+id/value"
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageButton1"
+        android:layout_marginLeft="42dp"
+        android:layout_toRightOf="@+id/imageButton1"
+        android:src="@drawable/ic_add" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/ic_see" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton1"
+        android:layout_below="@+id/imageButton1"
+        android:layout_marginTop="54dp"
+        android:src="@drawable/ic_remove" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton2"
+        android:layout_alignTop="@+id/imageButton3"
+        android:src="@drawable/ic_del" />
+
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
-        android:ems="10"
-        android:inputType="number" />
+        android:layout_marginTop="20dp"
+        android:text="Choisissez une action"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <RadioGroup
-        android:id="@+id/radioChoix"
+    <TextView
+        android:id="@+id/txt_refArt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/value"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp" >
-
-        <RadioButton
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/rd_add" />
-
-        <RadioButton
-            android:id="@+id/del"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rd_del" />
-
-        <RadioButton
-            android:id="@+id/nouveau"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rd_new" />
-
-        <RadioButton
-            android:id="@+id/voir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/rd_see" />
-
-        <RadioButton
-            android:id="@+id/suppresion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rd_remove" />
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/valAction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radioChoix"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:onClick="validate"
-        android:text="@string/bt_valAction" />
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="21dp"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

@@ -18,11 +18,6 @@ import android.hardware.Camera;
  */
 public class Photo extends Activity 
 {
-	//******************** Constant ********************
-
-	private final static int LENGHT_TOAST = 5;
-
-
 	//******************** Variable ********************
 
 	/**

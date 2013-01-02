@@ -37,6 +37,14 @@
             android:name="com.iutval.projetT.gestiondesstocks.ChoixAction"
             android:label="@string/title_activity_choix_action" >
         </activity>
+        <activity
+            android:name="com.iutval.projetT.gestiondesstocks.NewArticle"
+            android:label="@string/title_activity_new_article" >
+        </activity>
+        <activity
+            android:name="com.iutval.projetT.gestiondesstocks.Result"
+            android:label="@string/title_activity_result" >
+        </activity>
     </application>
 
 </manifest>

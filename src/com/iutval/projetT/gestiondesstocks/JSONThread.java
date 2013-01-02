@@ -19,6 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.util.Log;
 
 /**
@@ -59,6 +61,7 @@ public class JSONThread extends Thread
 	
 	private boolean exist;
 	
+	protected ProgressDialog prgD;	
 	
 	//*************** Constructor ******************
 	
@@ -69,6 +72,20 @@ public class JSONThread extends Thread
 		this.desc = null;
 		this.qte = 0;
 		this.exist = false;
+		this.prgD = null;
+	}
+	
+	public JSONThread(int ref, Context c)
+	{
+		this.id = ref;
+		this.nom = null;
+		this.desc = null;
+		this.qte = 0;
+		this.exist = false;
+		this.prgD = new ProgressDialog(c);
+		this.prgD.setTitle("Search");
+		this.prgD.setMessage("Receptions des informations");
+		this.prgD.show();
 	}
 	
 	//*************** main ************************
@@ -76,6 +93,8 @@ public class JSONThread extends Thread
 	public void run()
 	{
 		this.getInfoJson(this.readJsonURL(URL));
+		if(this.prgD != null)
+			this.prgD.dismiss();
 	}
 
 	//****************** Methods ******************
@@ -85,7 +104,7 @@ public class JSONThread extends Thread
 		// Variable
 		StringBuilder builder = new StringBuilder();
 		HttpClient client = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(url + "id=" + this.id);
+		HttpGet httpGet = new HttpGet(url + "id=" + this.id + "&action=see");
 		String line;
 
 		try 
