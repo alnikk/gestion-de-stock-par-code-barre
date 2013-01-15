@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
 
     <application

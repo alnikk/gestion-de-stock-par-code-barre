@@ -139,7 +139,7 @@ public class ExecURL extends Thread
 	private void createWait()
 	{
 		this.prgD = new ProgressDialog(this.context);
-		this.prgD.setTitle("Search");
+		this.prgD.setTitle("Execution");
 		this.prgD.setMessage("Receptions des informations");
 		this.prgD.show();
 	}

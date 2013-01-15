@@ -3,6 +3,7 @@ package com.iutval.projetT.gestiondesstocks;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class Result extends Activity
 		
 		this.qte = get.getQte();
 		this.nom = get.getNom();
+		Log.d("Result.class", "Nom : " + this.nom);
 		this.desc = get.getDesc();
 		
 		TextView txt;

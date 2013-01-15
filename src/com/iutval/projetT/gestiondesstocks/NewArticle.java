@@ -66,7 +66,7 @@ public class NewArticle extends Activity
 				String s = cs.toString();
 				int q = Integer.parseInt(s);
 				send.setQte(q);
-			}*/
+			}*/ // FIXME Resolve bug 
 				
 			send.start();
 			try 
