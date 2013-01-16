@@ -19,7 +19,7 @@ public class ChoixAction extends Activity
 	private int refArt;
 
 	/**
-	 * Thread for handle JSON informations in databae
+	 * Thread for handle JSON informations in database
 	 */
 	JSONThread getJSON;
 

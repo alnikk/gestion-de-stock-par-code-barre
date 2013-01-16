@@ -57,8 +57,8 @@ public class NewArticle extends Activity
 			
 			send.setRefArt(this.refArt);
 			send.setNom(zt_nom.getText().toString());
-			
-			/*if(((TextView) findViewById(R.id.zt_desc)).getText() != null && !((TextView) findViewById(R.id.zt_desc)).getText().equals(""))
+			/*
+			if(((TextView) findViewById(R.id.zt_desc)).getText() != null && !((TextView) findViewById(R.id.zt_desc)).getText().equals(""))
 				send.setDesc(((TextView) findViewById(R.id.zt_desc)).getText().toString());
 			if(((TextView) findViewById(R.id.zt_qte)).getText() != null && !((TextView) findViewById(R.id.zt_qte)).getText().equals(""))
 			{

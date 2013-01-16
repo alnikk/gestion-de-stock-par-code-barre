@@ -77,13 +77,4 @@ public class Result extends Activity
 		getMenuInflater().inflate(R.menu.activity_result, menu);
 		return true;
 	}
-
-	//********************* Button ***************************
-	
-	public void retour(View view)
-	{
-		Intent intent = new Intent(this, ChoixAction.class);
-		intent.putExtra("refArt", this.refArt);
-		startActivity(intent);
-	}
 }

@@ -89,7 +89,7 @@ public class Photo extends Activity
 
 		// Took photo
 		camera.takePicture(null, null, this.pic);
-		//photo = this.pic.getData();
+		photo = this.pic.getData();
 
 		// Send it to algorithm 
 		// refArt = decode(photo);
