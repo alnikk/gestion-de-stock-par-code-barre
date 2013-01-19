@@ -10,5 +10,6 @@
     <string name="title_activity_choix_action">ChoixAction</string>
     <string name="title_activity_new_article">NewArticle</string>
     <string name="title_activity_result">Result</string>
+    <string name="title_activity_add__qte">Add_Qte</string>
 
 </resources>

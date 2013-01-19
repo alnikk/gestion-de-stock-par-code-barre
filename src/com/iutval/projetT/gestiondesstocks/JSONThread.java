@@ -39,25 +39,7 @@ public class JSONThread extends Thread
 	
 	//**************** Variable *********************
 	
-	/**
-	 * Item's ID in database
-	 */
-	private int id;
-	
-	/**
-	 * Item's name in database
-	 */
-	private String nom;
-	
-	/**
-	 * Item's description in database
-	 */
-	private String desc;
-	
-	/**
-	 * Item's amount in database
-	 */
-	private int qte;
+	private Article art;
 	
 	private boolean exist;
 	
@@ -67,20 +49,18 @@ public class JSONThread extends Thread
 	
 	public JSONThread(int ref)
 	{
-		this.id = ref;
-		this.nom = null;
-		this.desc = null;
-		this.qte = 0;
+		this.art = null;
+		this.art = new Article();
+		this.art.setId(ref);
 		this.exist = false;
 		this.prgD = null;
 	}
 	
 	public JSONThread(int ref, Context c)
 	{
-		this.id = ref;
-		this.nom = null;
-		this.desc = null;
-		this.qte = 0;
+		this.art = null;
+		this.art = new Article();
+		this.art.setId(ref);
 		this.exist = false;
 		this.prgD = new ProgressDialog(c);
 		this.prgD.setTitle("Search");
@@ -101,10 +81,11 @@ public class JSONThread extends Thread
 	
 	private String readJsonURL(String url)
 	{
+		Log.d("JSONThread.class",this.art.getId() + "");
 		// Variable
 		StringBuilder builder = new StringBuilder();
 		HttpClient client = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(url + "id=" + this.id + "&action=see");
+		HttpGet httpGet = new HttpGet(url + "id=" + this.art.getId() + "&action=see");
 		String line;
 
 		try 
@@ -145,9 +126,11 @@ public class JSONThread extends Thread
 			{
 				this.exist = true;
 				JSONObject jsonObject = jsonArray.getJSONObject(0); // There's only one object
-				this.nom = jsonObject.getString("nom");
-				this.desc = jsonObject.getString("description");
-				this.qte = jsonObject.getInt("valeur");
+				this.art.setNom(jsonObject.getString("labelle"));
+				this.art.setDescription(jsonObject.getString("description"));
+				this.art.setQte(jsonObject.getInt("qte"));
+				this.art.setPu(jsonObject.getInt("pu"));
+				Log.d("JSONThread.class", this.art.toString());
 			}
 			else
 				this.exist = false;
@@ -160,40 +143,9 @@ public class JSONThread extends Thread
 	
 	//*************** Getters and Setters ***********
 	
-	/**
-	 * Returns item's ID in database
-	 * @return Item's ID in database
-	 */
-	public int getRef() 
+	public Article getArt() 
 	{
-		return id;
-	}
-
-	/**
-	 * Returns item's name in database
-	 * @return Item's name in database
-	 */
-	public String getNom() 
-	{
-		return nom;
-	}
-
-	/**
-	 * Returns item's description in database
-	 * @return Item's description in database
-	 */
-	public String getDesc() 
-	{
-		return desc;
-	}
-
-	/**
-	 * Returns item's amount in database
-	 * @return Item's amount in database
-	 */
-	public int getQte() 
-	{
-		return qte;
+		return art;
 	}
 
 	/**
@@ -203,5 +155,5 @@ public class JSONThread extends Thread
 	public boolean isExist() 
 	{
 		return exist;
-	}	
+	}
 }

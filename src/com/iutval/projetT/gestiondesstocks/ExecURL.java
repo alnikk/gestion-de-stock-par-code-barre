@@ -21,27 +21,8 @@ public class ExecURL extends Thread
 	private static final String URL = "http://192.168.1.20/android/script.php?";
 	
 	//********************** Variable *******************
-	/**
-	 * Reference (id, in database) of the item 
-	 */
-	private int refArt = 0;
 	
-	/**
-	 * The amount of item to set
-	 */
-	private int qte = 0;
-	
-	/**
-	 * The name of the item
-	 */
-	private String nom = null;
-	
-	/**
-	 * the descriptions of the item
-	 */
-	private String desc = null;
-	
-	private Action act;
+	private Article art;
 	
 	protected Context context = null;
 	
@@ -51,12 +32,14 @@ public class ExecURL extends Thread
 	
 	public ExecURL(Action a)
 	{	
-		this.act = a;
+		this.art = new Article();
+		this.art.setAct(a);
 	}
 	
 	public ExecURL(Context c, Action a)
 	{
-		this.act = a;
+		this.art = new Article();
+		this.art.setAct(a);
 		this.context = c;
 		this.createWait();
 	}
@@ -75,40 +58,42 @@ public class ExecURL extends Thread
 	{
 		String url = URL;
 		
-		switch(this.act)
+		switch(this.art.getAct())
 		{
 			case ADD:
-				if(this.refArt != 0 && this.qte != 0)
+				if(this.art.getId() != 0 && this.art.getQte() != 0)
 				{
-					url = url + "id=" + this.refArt;
-					url = url + "&=valeur" + this.qte;
+					url = url + "id=" + this.art.getId();
+					url = url + "&=valeur" + this.art.getQte();
 					url = url + "&action=add";
 				}
 				break;
 			case REMOVAL:
-				if(this.refArt != 0 && this.qte != 0)
+				if(this.art.getId() != 0 && this.art.getQte() != 0)
 				{
-					url = url + "id=" + this.refArt;
-					url = url + "&=valeur" + this.qte;
+					url = url + "id=" + this.art.getId();
+					url = url + "&=valeur" + this.art.getQte();
 					url = url + "&action=removal";
 				}
 				break;
 			case NEW:
-				if(this.refArt != 0 && this.nom != null)
+				if(this.art.getId() != 0 && this.art.getNom() != null)
 				{
-					url = url + "id=" + this.refArt;
-					url = url + "&nom=" + this.nom;
-					if(this.desc != null)
-						url = url + "&description=" + this.desc;
-					if(this.qte != 0)
-						url = url + "&=valeur" + this.qte;
+					url = url + "id=" + this.art.getId();
+					url = url + "&nom=" + this.art.getNom();
+					if(this.art.getDescription() != null)
+						url = url + "&description=" + this.art.getDescription();
+					if(this.art.getQte() != 0)
+						url = url + "&valeur=" + this.art.getQte();
+					if(this.art.getPu() != 0)
+						url = url + "&pu=" + this.art.getPu();
 					url = url + "&action=new";
 				}					
 				break;
 			case DELETE:
-				if(this.refArt != 0)
+				if(this.art.getId() != 0)
 				{
-					url = url + "id=" + this.refArt;
+					url = url + "id=" + this.art.getId();
 					url = url + "&action=delete";
 				}
 				break;
@@ -151,44 +136,14 @@ public class ExecURL extends Thread
 	}
 	
 	//********************** Getters & Setters *******************
-
-	public int getRefArt() 
+	
+	public Article getArt() 
 	{
-		return refArt;
+		return art;
 	}
 
-	public void setRefArt(int refArt) 
+	public void sendArt(Article art) 
 	{
-		this.refArt = refArt;
-	}
-
-	public int getQte() 
-	{
-		return qte;
-	}
-
-	public void setQte(int qte) 
-	{
-		this.qte = qte;
-	}
-
-	public String getNom() 
-	{
-		return nom;
-	}
-
-	public void setNom(String nom) 
-	{
-		this.nom = nom;
-	}
-
-	public String getDesc() 
-	{
-		return desc;
-	}
-
-	public void setDesc(String desc) 
-	{
-		this.desc = desc;
+		this.art = art;
 	}
 }

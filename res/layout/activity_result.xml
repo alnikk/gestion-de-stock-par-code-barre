@@ -91,5 +91,25 @@
         android:layout_alignLeft="@+id/txt_ref"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    <TextView
+        android:id="@+id/txt_pu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView6"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignLeft="@+id/txt_ref"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txt_desc"
+        android:layout_marginTop="22dp"
+        android:text="Prix unitaire"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

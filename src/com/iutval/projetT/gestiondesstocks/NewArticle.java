@@ -3,6 +3,7 @@ package com.iutval.projetT.gestiondesstocks;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -19,7 +20,7 @@ public class NewArticle extends Activity
 	/**
 	 * Reference of the item
 	 */
-	private int refArt;
+	private Article art;
 
 	//********************* State ***************************
 	
@@ -30,10 +31,11 @@ public class NewArticle extends Activity
 		setContentView(R.layout.activity_new_article);
 		
 		Intent intent = getIntent();
-		this.refArt = intent.getExtras().getInt("refArt");
+		this.art = new Article();
+		this.art.setId(intent.getExtras().getInt("refArt"));
 		
 		TextView zt_ref = (TextView) findViewById(R.id.zt_ref);
-		zt_ref.setText(this.refArt+"");
+		zt_ref.setText(this.art.getId()+"");
 	}
 
 	@Override
@@ -55,19 +57,29 @@ public class NewArticle extends Activity
 		{
 			ExecURL send = new ExecURL(com.iutval.projetT.gestiondesstocks.Action.NEW);;
 			
-			send.setRefArt(this.refArt);
-			send.setNom(zt_nom.getText().toString());
-			/*
+			this.art.setNom(zt_nom.getText().toString());
+			
 			if(((TextView) findViewById(R.id.zt_desc)).getText() != null && !((TextView) findViewById(R.id.zt_desc)).getText().equals(""))
-				send.setDesc(((TextView) findViewById(R.id.zt_desc)).getText().toString());
+				this.art.setDescription(((TextView) findViewById(R.id.zt_desc)).getText().toString());
+			
 			if(((TextView) findViewById(R.id.zt_qte)).getText() != null && !((TextView) findViewById(R.id.zt_qte)).getText().equals(""))
 			{
-				CharSequence cs = ((TextView) findViewById(R.id.zt_desc)).getText();
+				CharSequence cs = ((TextView) findViewById(R.id.zt_qte)).getText();
 				String s = cs.toString();
 				int q = Integer.parseInt(s);
-				send.setQte(q);
-			}*/ // FIXME Resolve bug 
+				this.art.setQte(q);
+			}
+			
+			if(((TextView) findViewById(R.id.zt_pu)).getText() != null && !((TextView) findViewById(R.id.zt_pu)).getText().equals(""))
+			{
+				CharSequence cs = ((TextView) findViewById(R.id.zt_pu)).getText();
+				String s = cs.toString();
+				int q = Integer.parseInt(s);
+				this.art.setPu(q);
+			}
 				
+			this.art.setAct(Action.NEW);
+			send.sendArt(art);
 			send.start();
 			try 
 			{
@@ -79,8 +91,15 @@ public class NewArticle extends Activity
 			}
 			
 			Intent intent = new Intent(this, Result.class);
-			intent.putExtra("refArt", this.refArt);
+			intent.putExtra("refArt", this.art.getId());
 			startActivity(intent);
 		}
+	}
+	
+	@Override
+	protected void onStop() 
+	{
+		super.onStop();
+		finish();
 	}
 }

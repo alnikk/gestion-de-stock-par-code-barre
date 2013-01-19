@@ -12,25 +12,7 @@ public class Result extends Activity
 {
 	//********************* Variable ***************************
 
-	/**
-	 * Reference of the item
-	 */
-	private int refArt;
-	
-	/**
-	 * Item's name in database
-	 */
-	private String nom;
-	
-	/**
-	 * Item's description in database
-	 */
-	private String desc;
-	
-	/**
-	 * Item's amount in database
-	 */
-	private int qte;
+	private Article art;
 	
 	//********************* State ***************************
 	
@@ -41,9 +23,8 @@ public class Result extends Activity
 		setContentView(R.layout.activity_result);
 		
 		Intent intent = getIntent();
-		this.refArt = intent.getExtras().getInt("refArt");
 		
-		JSONThread get = new JSONThread(this.refArt, this);
+		JSONThread get = new JSONThread(intent.getExtras().getInt("refArt"), this);
 		get.start();
 		try 
 		{
@@ -54,20 +35,21 @@ public class Result extends Activity
 			e.printStackTrace();
 		}
 		
-		this.qte = get.getQte();
-		this.nom = get.getNom();
-		Log.d("Result.class", "Nom : " + this.nom);
-		this.desc = get.getDesc();
+		this.art = get.getArt();
+		Log.d("Result.class", "Id : " + this.art.getId());
+		Log.d("Result.class", "Nom : " + this.art.getNom());
 		
 		TextView txt;
 		txt =  (TextView) findViewById(R.id.txt_ref);
-		txt.setText(this.refArt + "");
+		txt.setText(this.art.getId() + "");
 		txt =  (TextView) findViewById(R.id.txt_nom);
-		txt.setText(this.nom);
+		txt.setText(this.art.getNom());
 		txt =  (TextView) findViewById(R.id.txt_qte);
-		txt.setText(this.qte + "");
+		txt.setText(this.art.getQte() + "");
 		txt =  (TextView) findViewById(R.id.txt_desc);
-		txt.setText(this.desc + "");
+		txt.setText(this.art.getDescription() + "");
+		txt =  (TextView) findViewById(R.id.txt_pu);
+		txt.setText(this.art.getPu() + "");
 }
 
 	@Override
