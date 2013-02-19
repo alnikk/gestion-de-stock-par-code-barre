@@ -24,11 +24,6 @@
         <activity
             android:name="com.iutval.projetT.gestiondesstocks.Photo"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.iutval.projetT.gestiondesstocks.WebViewActivity"
@@ -45,6 +40,15 @@
         <activity
             android:name="com.iutval.projetT.gestiondesstocks.Result"
             android:label="@string/title_activity_result" >
+        </activity>
+        <activity
+            android:name="com.iutval.projetT.gestiondesstocks.Utilisation"
+            android:label="@string/title_activity_utilisation" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

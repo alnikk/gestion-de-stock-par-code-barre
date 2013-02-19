@@ -1,11 +1,14 @@
 package com.iutval.projetT.gestiondesstocks;
 
 import java.io.IOException;
+import java.io.StringReader;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.xml.sax.Parser;
+import org.xml.sax.helpers.ParserFactory;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -54,7 +57,7 @@ public class ExecURL extends Thread
 	
 	//********************** Methods *******************
 	
-	private void sendInfo()
+	private void sendInfo() //TODO add strReplace 
 	{
 		String url = URL;
 		
@@ -82,7 +85,10 @@ public class ExecURL extends Thread
 					url = url + "id=" + this.art.getId();
 					url = url + "&nom=" + this.art.getNom();
 					if(this.art.getDescription() != null)
+					{
+						
 						url = url + "&description=" + this.art.getDescription();
+					}
 					if(this.art.getQte() != 0)
 						url = url + "&valeur=" + this.art.getQte();
 					if(this.art.getPu() != 0)

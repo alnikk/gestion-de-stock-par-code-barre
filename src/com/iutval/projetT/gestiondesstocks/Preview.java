@@ -1,12 +1,19 @@
 package com.iutval.projetT.gestiondesstocks;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.hardware.Camera;
+import android.os.Build;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -15,7 +22,6 @@ import android.view.SurfaceView;
  * 
  * @author alexandre
  */
-@SuppressLint("ViewConstructor")
 public class Preview extends SurfaceView implements SurfaceHolder.Callback 
 {
 	/**
@@ -109,16 +115,21 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback
 		{    }
 	}
 
+	
 	/**
 	 * Draw on preview
 	 */
 	@Override
-	public void onDraw(Canvas canvas) 
-	{
-		/*super.onDraw(canvas);
+    public void onDraw(Canvas canvas) {
+		/*Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setStrokeWidth(3);
+        canvas.drawRect(30, 30, 80, 80, paint);
+        paint.setStrokeWidth(0);
+        paint.setColor(Color.CYAN);
+        canvas.drawRect(33, 60, 77, 77, paint );
+        paint.setColor(Color.YELLOW);
+        canvas.drawRect(33, 33, 77, 60, paint );*/
 
-		Paint p = new Paint(Color.RED);
-		canvas.drawText("PREVIEW", canvas.getWidth() / 2,
-				canvas.getHeight() / 2, p);*/
-	}
+    }
 }
