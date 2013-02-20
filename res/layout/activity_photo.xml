@@ -4,15 +4,11 @@
     android:layout_height="match_parent"
     tools:context=".Menu" >
     
-    <SurfaceView
+    <FrameLayout
     	android:id="@+id/camera_preview"
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
     />
-    
-    <com.iutval.projetT.gestiondesstocks.OverlayView android:id="@+id/surface_overlay"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent" />
 
     <Button
         android:id="@+id/capture"

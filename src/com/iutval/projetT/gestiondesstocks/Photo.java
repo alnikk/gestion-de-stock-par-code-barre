@@ -35,11 +35,6 @@ public class Photo extends Activity
 	 * The pictures took with camera
 	 */
 	private CamPicture pic = null;
-	
-	/**
-	 * For drawing on preview
-	 */
-	private OverlayView mOverSV;
 
 	//******************** State ********************
 
@@ -131,18 +126,6 @@ public class Photo extends Activity
 		}
 		catch (Exception e)
 		{}
-		mOverSV = (OverlayView)findViewById(R.id.surface_overlay);
-		mOverSV.getHolder().setFormat(PixelFormat.TRANSLUCENT);
-		mOverSV.setCamera(this.camera);		
-		this.addOverlay();
-		
-		Camera.Parameters p = this.camera.getParameters();
-		for(Camera.Size s : p.getSupportedPreviewSizes())
-		{
-		    p.setPreviewSize(s.width, s.height);
-		    mOverSV.setPreviewSize(s);
-		    break;
-		}
 	}
 
 	/**
@@ -154,17 +137,5 @@ public class Photo extends Activity
 
 		FrameLayout view = (FrameLayout) findViewById(R.id.camera_preview);
 		view.addView(this.preview);
-	}
-	
-	/**
-	 * Allow to add overlay on preview
-	 */
-	private void addOverlay()
-	{
-		if(this.mOverSV != null)
-		{
-			FrameLayout view = (FrameLayout) findViewById(R.id.camera_preview);
-			view.addView(this.mOverSV);
-		}
 	}
 }
