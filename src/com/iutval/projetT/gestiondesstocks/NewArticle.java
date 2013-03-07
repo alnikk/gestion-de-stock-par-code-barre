@@ -55,7 +55,7 @@ public class NewArticle extends Activity
 			Toast.makeText(getApplicationContext(), "Entrer un nom", Toast.LENGTH_LONG).show();
 		else
 		{
-			ExecURL send = new ExecURL(com.iutval.projetT.gestiondesstocks.Action.NEW);;
+			ExecURL send = new ExecURL();
 			
 			this.art.setNom(zt_nom.getText().toString());
 			

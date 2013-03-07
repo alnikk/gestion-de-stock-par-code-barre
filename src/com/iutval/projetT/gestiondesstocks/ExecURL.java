@@ -33,16 +33,14 @@ public class ExecURL extends Thread
 	
 	//********************** Constructors ****************
 	
-	public ExecURL(Action a)
+	public ExecURL()
 	{	
 		this.art = new Article();
-		this.art.setAct(a);
 	}
 	
-	public ExecURL(Context c, Action a)
+	public ExecURL(Context c)
 	{
 		this.art = new Article();
-		this.art.setAct(a);
 		this.context = c;
 		this.createWait();
 	}
@@ -67,7 +65,7 @@ public class ExecURL extends Thread
 				if(this.art.getId() != 0 && this.art.getQte() != 0)
 				{
 					url = url + "id=" + this.art.getId();
-					url = url + "&=valeur" + this.art.getQte();
+					url = url + "&valeur=" + this.art.getQte();
 					url = url + "&action=add";
 				}
 				break;
@@ -75,7 +73,7 @@ public class ExecURL extends Thread
 				if(this.art.getId() != 0 && this.art.getQte() != 0)
 				{
 					url = url + "id=" + this.art.getId();
-					url = url + "&=valeur" + this.art.getQte();
+					url = url + "&valeur=" + this.art.getQte();
 					url = url + "&action=removal";
 				}
 				break;
@@ -103,9 +101,12 @@ public class ExecURL extends Thread
 					url = url + "&action=delete";
 				}
 				break;
-		default:
-			break;
+			default:
+				break;
 		}
+		
+		//Enlève les espaces
+		url = url.replaceAll(" ", "%20");
 		
 		Log.d("ExecURL.class", url);
 		

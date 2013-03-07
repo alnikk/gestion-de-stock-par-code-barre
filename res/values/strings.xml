@@ -12,5 +12,9 @@
     <string name="title_activity_result">Result</string>
     <string name="title_activity_add__qte">Add_Qte</string>
     <string name="title_activity_utilisation">Utilisation</string>
+    <string name="title_activity_popup_maison">PopupMaison</string>
+    <string name="title_activity_open_id">OpenId</string>
+    <string name="title_activity_add_qte">AddQte</string>
+    <string name="title_activity_suppr_qte">SupprQte</string>
 
 </resources>

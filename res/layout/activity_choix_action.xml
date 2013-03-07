@@ -11,7 +11,8 @@
         android:layout_alignTop="@+id/imageButton1"
         android:layout_marginLeft="42dp"
         android:layout_toRightOf="@+id/imageButton1"
-        android:src="@drawable/ic_add" />
+        android:src="@drawable/ic_add" 
+        android:onClick="addQte"/>
 
     <ImageButton
         android:id="@+id/imageButton1"
@@ -31,7 +32,8 @@
         android:layout_alignLeft="@+id/imageButton1"
         android:layout_below="@+id/imageButton1"
         android:layout_marginTop="54dp"
-        android:src="@drawable/ic_remove" />
+        android:src="@drawable/ic_remove"
+        android:onClick="supprQte" />
 
     <ImageButton
         android:id="@+id/imageButton4"
@@ -39,7 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageButton2"
         android:layout_alignTop="@+id/imageButton3"
-        android:src="@drawable/ic_del" />
+        android:src="@drawable/ic_del"
+        android:onClick="supprProduit" />
 
     <TextView
         android:id="@+id/textView1"

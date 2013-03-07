@@ -3,6 +3,7 @@ package com.iutval.projetT.gestiondesstocks;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.view.View;
  * This class get informations about product id in database, and send the user automatically throw another activity. 
  * @author alexandre
  */
-public class ChoixAction extends Activity 
+public class ChoixAction extends FragmentActivity 
 {
 	//**************** Variable *********************
 	
@@ -75,5 +76,26 @@ public class ChoixAction extends Activity
 		Intent newArt = new Intent(this, Result.class);
 		newArt.putExtra("refArt", this.art.getId());
 		startActivity(newArt);
+	}
+	
+	public void addQte(View view)
+	{
+		Intent newArt = new Intent(this, AddQte.class);
+		newArt.putExtra("refArt", this.art.getId());
+		startActivity(newArt);
+	}
+	
+	public void supprQte(View view)
+	{
+		Intent newArt = new Intent(this, SupprQte.class);
+		newArt.putExtra("refArt", this.art.getId());
+		startActivity(newArt);
+	}
+	
+	public void supprProduit(View view)
+	{
+		SupprProduit suppr = new SupprProduit(this.art.getId());
+		suppr.show(getSupportFragmentManager(),"suppr");
+		//finish();
 	}
 }

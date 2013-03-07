@@ -7,7 +7,7 @@ import android.support.v4.app.*;
 import android.view.Menu;
 import android.view.View;
 
-public class Utilisation extends Activity
+public class Utilisation extends FragmentActivity
 {
 
 	@Override
@@ -25,7 +25,7 @@ public class Utilisation extends Activity
 	
 	public void checkRef(View view)
 	{
-		DialogFragment newFragment = new Popup();
-	    newFragment.show(getSupportFragmentManager(),"Id");
+		Intent intent = new Intent(this, OpenId.class);
+		startActivity(intent);
 	}
 }
