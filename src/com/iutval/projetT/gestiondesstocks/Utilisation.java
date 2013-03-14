@@ -1,15 +1,21 @@
 package com.iutval.projetT.gestiondesstocks;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.*;
-import android.view.Menu;
 import android.view.View;
 
+/**
+ * Main Activity.
+ * This will wait user touch one of theses buttons.
+ * The user have to choice between take a picture or
+ * key in manually the product's id.
+ * @author Alexandre Guyon
+ */
 public class Utilisation extends FragmentActivity
 {
-
+	//********************** State ************************
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -17,12 +23,20 @@ public class Utilisation extends FragmentActivity
 		setContentView(R.layout.activity_utilisation);
 	}
 	
+	//************************ Buttons ********************
+	
+	/**
+	 * Take a picture (launch activity)
+	 */
 	public void photo(View view)
 	{
 		Intent intent = new Intent(this, Photo.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Key in a the product's id.
+	 */
 	public void checkRef(View view)
 	{
 		Intent intent = new Intent(this, OpenId.class);

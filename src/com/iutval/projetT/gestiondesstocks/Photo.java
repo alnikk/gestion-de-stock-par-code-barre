@@ -8,12 +8,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.PixelFormat;
 import android.hardware.Camera;
 
 
 /**
- * This class is the home class of the application.
  * It detects camera, and launch it for identifying barCode.
  * @author Alexandre Guyon
  */

@@ -3,15 +3,23 @@ package com.iutval.projetT.gestiondesstocks;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This activity is used for removing amount in database's stock of this product.
+ * @author Alexandre Guyon
+ */
 public class SupprQte extends Activity 
 {
+	//*************************** Attributes ************************
+	/**
+	 * Product's id
+	 */
 	private int ref;
 	
+	//*************************** State ****************************
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -22,14 +30,22 @@ public class SupprQte extends Activity
 		this.ref = intent.getExtras().getInt("refArt");		
 	}
 	
+	//***************************** Buttons **********************
+	
+	/**
+	 * Kill activity when pushing this button
+	 */
 	public void annuler(View view)
 	{
 		finish();
 	}
 	
+	/**
+	 * Remove amount in database's stock of this product
+	 */
 	public void valider(View view)
 	{
-		TextView zt_qte = (TextView) findViewById(R.id.openId);
+		TextView zt_qte = (TextView) findViewById(R.id.value);
 		
 		if(zt_qte.getText() == null || zt_qte.getText().equals("") || zt_qte.getText() == "")
 		{

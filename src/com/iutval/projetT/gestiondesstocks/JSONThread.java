@@ -26,7 +26,7 @@ import android.util.Log;
 /**
  * Class to handle JSON in external process
  * 
- * @author alexandre
+ * @author Alexandre Guyon
  */
 public class JSONThread extends Thread 
 {
@@ -39,14 +39,28 @@ public class JSONThread extends Thread
 	
 	//**************** Variable *********************
 	
+	/**
+	 * Article to get
+	 */
 	private Article art;
 	
+	/**
+	 * True if the product's id exist. False otherwise.
+	 */
 	private boolean exist;
 	
+	/**
+	 * ProgressDialog used to waiting for receive data.
+	 */
 	protected ProgressDialog prgD;	
 	
 	//*************** Constructor ******************
-	
+	/**
+	 * Default Constructor.
+	 * It create a JSONThread for get information 
+	 * about a product in database.
+	 * @param ref Product's id to look up
+	 */
 	public JSONThread(int ref)
 	{
 		this.art = null;
@@ -56,6 +70,12 @@ public class JSONThread extends Thread
 		this.prgD = null;
 	}
 	
+	/**
+	 * It create a JSONThread for get information 
+	 * about a product in database.
+	 * @param ref Product's id to look up
+	 * @param c Context of the running activity
+	 */
 	public JSONThread(int ref, Context c)
 	{
 		this.art = null;
@@ -63,13 +83,16 @@ public class JSONThread extends Thread
 		this.art.setId(ref);
 		this.exist = false;
 		this.prgD = new ProgressDialog(c);
-		this.prgD.setTitle("Search");
+		this.prgD.setTitle("Search"); // TODO String.xml
 		this.prgD.setMessage("Receptions des informations");
 		this.prgD.show();
 	}
 	
 	//*************** main ************************
-	
+	/**
+	 * Main of the thread.
+	 * It wait for receiving data.
+	 */
 	public void run()
 	{
 		this.getInfoJson(this.readJsonURL(URL));
@@ -79,9 +102,13 @@ public class JSONThread extends Thread
 
 	//****************** Methods ******************
 	
+	/**
+	 * Get the JSON's string.
+	 * @param url The URL of the JSON
+	 * @return JSON's string
+	 */
 	private String readJsonURL(String url)
 	{
-		Log.d("JSONThread.class",this.art.getId() + "");
 		// Variable
 		StringBuilder builder = new StringBuilder();
 		HttpClient client = new DefaultHttpClient();
@@ -117,20 +144,27 @@ public class JSONThread extends Thread
 		return builder.toString();
 	}
 	
+	/**
+	 * Parse the JSON's string and put the information into the article.
+	 * @param json The JSON's string
+	 */
 	private void getInfoJson(String json)
 	{
 		try 
-		{
+		{	// Create JSON table for easier parsing.
 			JSONArray jsonArray = new JSONArray(json);
 			if(!jsonArray.isNull(0))
 			{
 				this.exist = true;
-				JSONObject jsonObject = jsonArray.getJSONObject(0); // There's only one object
+				
+				// There's only one object
+				JSONObject jsonObject = jsonArray.getJSONObject(0);
+				
+				// Set article from JSON
 				this.art.setNom(jsonObject.getString("labelle"));
 				this.art.setDescription(jsonObject.getString("description"));
 				this.art.setQte(jsonObject.getInt("qte"));
 				this.art.setPu(jsonObject.getInt("pu"));
-				Log.d("JSONThread.class", this.art.toString());
 			}
 			else
 				this.exist = false;
@@ -143,6 +177,10 @@ public class JSONThread extends Thread
 	
 	//*************** Getters and Setters ***********
 	
+	/**
+	 * Get the article when Thread finish.
+	 * @return
+	 */
 	public Article getArt() 
 	{
 		return art;

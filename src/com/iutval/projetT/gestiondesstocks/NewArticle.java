@@ -3,19 +3,17 @@ package com.iutval.projetT.gestiondesstocks;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 /**
  * This class is used to create new article in database. 
- * @author alexandre
+ * @author Alexandre Guyon
  */
 public class NewArticle extends Activity 
 {
-	//********************* Variable ***************************
+	//********************* Attributes ***************************
 	
 	/**
 	 * Reference of the item
@@ -30,33 +28,34 @@ public class NewArticle extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_article);
 		
+		// Get product's id to create
 		Intent intent = getIntent();
 		this.art = new Article();
 		this.art.setId(intent.getExtras().getInt("refArt"));
 		
+		// Set it in interface
 		TextView zt_ref = (TextView) findViewById(R.id.zt_ref);
 		zt_ref.setText(this.art.getId()+"");
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_new_article, menu);
-		return true;
-	}
-	
 	//********************* Button ***************************
 	
-	public void valider(View view)
+	/**
+	 * Button 'valider'.
+	 * It used to send user input data (key in before), to the database
+	 * for creating new products in this one.
+	 */
+	public void valider(View view) // TODO string.xml
 	{
+		// Get the name of the products
 		TextView zt_nom = (TextView) findViewById(R.id.zt_nom);
 		if(zt_nom.getText() == null || zt_nom.getText().equals(""))
 			Toast.makeText(getApplicationContext(), "Entrer un nom", Toast.LENGTH_LONG).show();
 		else
-		{
+		{	// Create ExecURL for send informations to server.
 			ExecURL send = new ExecURL();
 			
+			// Get informations key in by user
 			this.art.setNom(zt_nom.getText().toString());
 			
 			if(((TextView) findViewById(R.id.zt_desc)).getText() != null && !((TextView) findViewById(R.id.zt_desc)).getText().equals(""))
@@ -77,25 +76,28 @@ public class NewArticle extends Activity
 				int q = Integer.parseInt(s);
 				this.art.setPu(q);
 			}
-				
+			
+			// Set the action to do with this product
 			this.art.setAct(Action.NEW);
-			send.sendArt(art);
-			send.start();
+			send.sendArt(art); // Send it to thread
+			send.start(); // Send to server
 			try 
 			{
-				send.join();
+				send.join(); // Wait answer from server
 			}
 			catch (InterruptedException e) 
 			{
 				e.printStackTrace();
 			}
 			
+			// Show information database for monitoring.
 			Intent intent = new Intent(this, Result.class);
 			intent.putExtra("refArt", this.art.getId());
 			startActivity(intent);
 		}
 	}
 	
+	// TODO test it, it used for do what??
 	@Override
 	protected void onStop() 
 	{

@@ -1,26 +1,17 @@
 package com.iutval.projetT.gestiondesstocks;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.hardware.Camera;
-import android.os.Build;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 /**
  * It create preview surface for the camera
  * 
- * @author alexandre
+ * @author Alexandre Guyon
  */
 public class Preview extends SurfaceView implements SurfaceHolder.Callback 
 {

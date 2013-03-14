@@ -6,10 +6,21 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
+/**
+ * This FrangmentActivity is used for delete product from database.
+ * It creates popup with warning before . 
+ * @author Alexandre Guyon
+ */
 public class SupprProduit extends DialogFragment 
 {
+	//******************** Attributes *************************
 	private int ref;
 	
+	//******************** Constructors ***********************
+	/**
+	 * 
+	 * @param ref
+	 */
 	public SupprProduit(int ref)
 	{
 		this.ref = ref;

@@ -1,20 +1,19 @@
 package com.iutval.projetT.gestiondesstocks;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 
 /**
- * This class get informations about product id in database, and send the user automatically throw another activity. 
- * @author alexandre
+ * This class get informations about product
+ *  id in database, and send the user 
+ *  automatically throw another activity. 
+ * @author Alexandre Guyon
  */
 public class ChoixAction extends FragmentActivity 
 {
-	//**************** Variable *********************
+	//**************** Attributes *********************
 	
 	/**
 	 * Reference of the item
@@ -22,7 +21,7 @@ public class ChoixAction extends FragmentActivity
 	private Article art;
 
 	/**
-	 * Thread for handle JSON informations in database
+	 * Thread for handle JSON receives' informations in database
 	 */
 	JSONThread getJSON;
 
@@ -37,11 +36,11 @@ public class ChoixAction extends FragmentActivity
 		
 		this.art = new Article();
 		
-		// Get argument
+		// Get argument from previous activity (Article reference)
 		Intent intent = getIntent();
 		this.art.setId(intent.getExtras().getInt("refArt"));
 
-		// Run thread for handle informations in database
+		// Run thread for handle receives' informations in database
 		getJSON = new JSONThread(this.art.getId(), this);
 		getJSON.start();		
 		try 
@@ -53,24 +52,43 @@ public class ChoixAction extends FragmentActivity
 			e.printStackTrace();
 		}
 		
-		if(!getJSON.isExist())
+		// If the product doesn't exist, automatically change
+		// to NewArticle class for create new one
+		if(!getJSON.isExist()) 
 		{
 			Intent newArt = new Intent(this, NewArticle.class);
 			newArt.putExtra("refArt", this.art.getId());
 			startActivity(newArt);
 		}
 	}
-
+	
+	// TODO à tester
+	/*
+	 * if(!getJSON.isExist()) 
+		{
+			Intent newArt = new Intent(this, NewArticle.class);
+			newArt.putExtra("refArt", this.art.getId());
+			startActivity(newArt);
+		}
+	 */
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) 
+	protected void onRestart() 
 	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_choix_action, menu);
-		return true;
+		super.onRestart();
 	}
 	
-	//****************** Bouton ****************
+	@Override
+	protected void onResume() 
+	{
+		super.onResume();
+	}
 	
+	//****************** Button ****************
+	
+	/**
+	 * Method for the button 'Consulter'. It change the activity 
+	 * to Result class for view information about product.
+	 */
 	public void consulter(View view)
 	{
 		Intent newArt = new Intent(this, Result.class);
@@ -78,6 +96,10 @@ public class ChoixAction extends FragmentActivity
 		startActivity(newArt);
 	}
 	
+	/**
+	 * Method for the button 'Ajouter Quantité'. It change the activity 
+	 * to AddQte class for add amount in database.
+	 */
 	public void addQte(View view)
 	{
 		Intent newArt = new Intent(this, AddQte.class);
@@ -85,6 +107,10 @@ public class ChoixAction extends FragmentActivity
 		startActivity(newArt);
 	}
 	
+	/**
+	 * Method for the button 'Supprimer Quantité'. It change the activity 
+	 * to AddQte class for remove amount in database.
+	 */
 	public void supprQte(View view)
 	{
 		Intent newArt = new Intent(this, SupprQte.class);
@@ -92,6 +118,10 @@ public class ChoixAction extends FragmentActivity
 		startActivity(newArt);
 	}
 	
+	/**
+	 * Method for the button 'Supprimer produit'. It change the activity 
+	 * to SupprProduit class for delete the products in database.
+	 */
 	public void supprProduit(View view)
 	{
 		SupprProduit suppr = new SupprProduit(this.art.getId());

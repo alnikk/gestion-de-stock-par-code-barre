@@ -6,30 +6,51 @@ package com.iutval.projetT.gestiondesstocks;
 import java.io.Serializable;
 
 /**
- * Create article object
- * @author alexandre
+ * Create article object.
+ * It uses for represent a product.
+ * @author Alexandre Guyon
  */
 public class Article implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Product's id in database 
+	 */
 	private int id;
 	
+	/**
+	 * Product's name in database
+	 */
 	private String nom;
 	
+	/**
+	 * Product's description in database
+	 */
 	private String description;
 	
+	/**
+	 * Product's amount in database
+	 */
 	private int qte;
 	
+	/**
+	 * Product's price in database 
+	 */
 	private int pu;
 	
+	/**
+	 * Action to handle product in database
+	 */
 	private Action act;
-	
+
+	/**
+	 * Product's image in database 
+	 */
 //	private ImageIcon img;
 
+	//*********************** Constructor **********************
+	
 	public Article()
 	{
 		this.id = 0;
@@ -40,6 +61,8 @@ public class Article implements Serializable
 		this.act = null;
 	}
 
+	//*********************** Getters and Setters **********************	
+	
 	public int getId()
 	{
 		return this.id;
@@ -100,12 +123,12 @@ public class Article implements Serializable
 		this.act = act;
 	}
 
+	//*********************** toString **********************
+	
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", nom=" + nom + ", description="
 				+ description + ", qte=" + qte + ", pu=" + pu + ", act=" + act
 				+ "]";
-	}
-	
-	
+	}	
 }

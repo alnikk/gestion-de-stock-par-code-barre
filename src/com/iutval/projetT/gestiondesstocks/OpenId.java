@@ -3,14 +3,18 @@ package com.iutval.projetT.gestiondesstocks;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This Activity is used for asking user to key in
+ * a product's id that he wants handle  
+ * @author Alexandre Guyon
+ */
 public class OpenId extends Activity 
-{
-
+{	
+	//******************** State *****************************
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -19,14 +23,23 @@ public class OpenId extends Activity
 		setContentView(R.layout.activity_popup_maison);
 	}
 	
+	//****************** Button ****************************
+	
+	/**
+	 * Kill activity when push this button.
+	 */
 	public void annuler(View view)
 	{
 		finish();
 	}
 	
+	/**
+	 * Get the number key in by the user, and launch 
+	 * ChoixAction activity with this number
+	 */
 	public void valider(View view)
 	{
-		TextView zt_id = (TextView) findViewById(R.id.openId);
+		TextView zt_id = (TextView) findViewById(R.id.value);
 		
 		if(zt_id.getText() == null || zt_id.getText().equals("") || zt_id.getText() == "")
 		{

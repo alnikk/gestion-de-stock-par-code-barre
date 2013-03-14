@@ -30,7 +30,6 @@ public final class R {
         public static final int imageButton3=0x7f070002;
         public static final int imageButton4=0x7f070003;
         public static final int menu_settings=0x7f07001d;
-        public static final int openId=0x7f070013;
         public static final int textView1=0x7f070004;
         public static final int textView2=0x7f070009;
         public static final int textView3=0x7f070008;
@@ -43,6 +42,7 @@ public final class R {
         public static final int txt_qte=0x7f070019;
         public static final int txt_ref=0x7f070017;
         public static final int txt_refArt=0x7f070005;
+        public static final int value=0x7f070013;
         public static final int zt_desc=0x7f07000c;
         public static final int zt_nom=0x7f07000b;
         public static final int zt_pu=0x7f070010;

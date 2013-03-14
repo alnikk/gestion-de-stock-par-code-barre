@@ -2,7 +2,7 @@ package com.iutval.projetT.gestiondesstocks;
 
 /**
  * Action for handle stock
- * @author alexandre
+ * @author Alexandre Guyon
  */
 public enum Action {
 	/**

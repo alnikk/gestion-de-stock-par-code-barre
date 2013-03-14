@@ -3,15 +3,19 @@ package com.iutval.projetT.gestiondesstocks;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
-import android.view.Menu;
-import android.view.View;
 import android.widget.TextView;
 
+/**
+ * This class is used for viewing product's details in database.
+ * @author Alexandre Guyon
+ */
 public class Result extends Activity 
 {
 	//********************* Variable ***************************
 
+	/**
+	 * The article
+	 */
 	private Article art;
 	
 	//********************* State ***************************
@@ -21,11 +25,10 @@ public class Result extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_result);
-		
+		// Get product's id
 		Intent intent = getIntent();
-		
 		JSONThread get = new JSONThread(intent.getExtras().getInt("refArt"), this);
-		get.start();
+		get.start(); // Start receiving informations
 		try 
 		{
 			get.join();
@@ -34,11 +37,8 @@ public class Result extends Activity
 		{
 			e.printStackTrace();
 		}
-		
 		this.art = get.getArt();
-		Log.d("Result.class", "Id : " + this.art.getId());
-		Log.d("Result.class", "Nom : " + this.art.getNom());
-		
+		// Sending informations to the view
 		TextView txt;
 		txt =  (TextView) findViewById(R.id.txt_ref);
 		txt.setText(this.art.getId() + "");
@@ -50,13 +50,5 @@ public class Result extends Activity
 		txt.setText(this.art.getDescription() + "");
 		txt =  (TextView) findViewById(R.id.txt_pu);
 		txt.setText(this.art.getPu() + "");
-}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_result, menu);
-		return true;
 	}
 }
