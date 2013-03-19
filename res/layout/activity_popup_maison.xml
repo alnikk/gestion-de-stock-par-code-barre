@@ -17,26 +17,6 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/bt_annuler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="37dp"
-        android:text="Annuler"
-        android:onClick="annuler" />
-
-    <Button
-        android:id="@+id/bt_val"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_alignRight="@+id/editText1"
-        android:text="Valider"
-        android:onClick="valider" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -44,7 +24,27 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="92dp"
-        android:text="Medium Text"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/bt_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/value"
+        android:layout_below="@+id/value"
+        android:layout_marginTop="85dp"
+        android:onClick="valider"
+        android:text="@string/bt_val" />
+
+    <Button
+        android:id="@+id/bt_annuler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/bt_val"
+        android:layout_alignBottom="@+id/bt_val"
+        android:layout_alignRight="@+id/value"
+        android:onClick="annuler"
+        android:text="@string/bt_cancel" />
 
 </RelativeLayout>

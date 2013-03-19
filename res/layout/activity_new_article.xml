@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
-        android:text="Ajouter une référence"
+        android:text="@string/new_art_add"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="33dp"
-        android:text="Ref"
+        android:text="@string/new_art_ref"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="17dp"
-        android:text="Nom"
+        android:text="@string/new_art_nom"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
         android:layout_marginTop="21dp"
-        android:text="Description"
+        android:text="@string/new_art_desc"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -50,7 +50,7 @@
         android:layout_alignLeft="@+id/textView4"
         android:layout_below="@+id/textView4"
         android:layout_marginTop="23dp"
-        android:text="Qte"
+        android:text="@string/new_art_qte"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
@@ -69,6 +69,7 @@
 
     <EditText
         android:id="@+id/zt_nom"
+        android:inputType="text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView3"
@@ -78,6 +79,7 @@
 
     <EditText
         android:id="@+id/zt_desc"
+        android:inputType="text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView4"
@@ -112,7 +114,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/zt_qte"
         android:layout_marginTop="25dp"
-        android:text="Prix unitaire" />
+        android:text="@string/new_art_prix" />
 
     <EditText
         android:id="@+id/zt_pu"

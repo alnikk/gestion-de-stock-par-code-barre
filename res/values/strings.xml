@@ -2,19 +2,42 @@
 <resources>
 
     <string name="app_name">Gestion Des Stocks</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="bt_capture">Prendre en Photo</string>
+    
     <string name="bt_val">Valider</string>
-    <string name="title_activity_web_view">WebView</string>
-    <string name="title_activity_choix_action">ChoixAction</string>
-    <string name="title_activity_new_article">NewArticle</string>
-    <string name="title_activity_result">Result</string>
-    <string name="title_activity_add__qte">Add_Qte</string>
-    <string name="title_activity_utilisation">Utilisation</string>
-    <string name="title_activity_popup_maison">PopupMaison</string>
+    <string name="bt_cancel">Annuler</string>
+    
+    <string name="bt_capture">Prendre en Photo</string>
+    
+    <string name="choix_action_title">Choisissez une action</string>
+    
+    <string name="new_art_add">Ajouter une référence</string>
+    <string name="new_art_ref">Réference</string>
+    <string name="new_art_nom">Nom</string>
+    <string name="new_art_desc">Description</string>
+    <string name="new_art_qte">Quantité</string>
+    <string name="new_art_prix">Prix unitaire</string>
+    
+    <string name="cons_title">Vue d\'ensemble</string>
+    <string name="cons_ref">Réference</string>
+    <string name="cons_nom">Nom</string>
+    <string name="cons_qte">Quantite</string>
+    <string name="cons_desc">Description</string>
+    <string name="cons_prix">Prix</string>
+    
+    <string name="util_photo">Prendre une photo</string>    
+    <string name="util_key">Saisir une reference</string>
+    
+    <string name="title_activity_choix_action">Choisir une action</string>
+    <string name="title_activity_new_article">Nouvel article</string>
+    <string name="title_activity_result">Consultation</string>
+    <string name="title_activity_add__qte">Ajouter stock</string>
+    <string name="title_activity_utilisation">Choisir une action</string>
+    <string name="title_activity_suppr_qte">Supprimer du stock</string>
+    <string name="title_activity_add_qte">Ajouter du stock</string>
+    
+    
     <string name="title_activity_open_id">OpenId</string>
-    <string name="title_activity_add_qte">AddQte</string>
-    <string name="title_activity_suppr_qte">SupprQte</string>
-
+    <string name="title_activity_popup_maison">PopupMaison</string>
+    <string name="hello_world">Hello world!</string>
 </resources>

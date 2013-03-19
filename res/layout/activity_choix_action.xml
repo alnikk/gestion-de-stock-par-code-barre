@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     tools:context=".ChoixAction" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/choix_action_title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
@@ -11,8 +21,8 @@
         android:layout_alignTop="@+id/imageButton1"
         android:layout_marginLeft="42dp"
         android:layout_toRightOf="@+id/imageButton1"
-        android:src="@drawable/ic_add" 
-        android:onClick="addQte"/>
+        android:onClick="addQte"
+        android:src="@drawable/ic_add_stock" />
 
     <ImageButton
         android:id="@+id/imageButton1"
@@ -22,8 +32,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="120dp"
-        android:src="@drawable/ic_see"
-        android:onClick="consulter" />
+        android:onClick="consulter"
+        android:src="@drawable/ic_consult" />
 
     <ImageButton
         android:id="@+id/imageButton3"
@@ -32,8 +42,8 @@
         android:layout_alignLeft="@+id/imageButton1"
         android:layout_below="@+id/imageButton1"
         android:layout_marginTop="54dp"
-        android:src="@drawable/ic_remove"
-        android:onClick="supprQte" />
+        android:onClick="supprQte"
+        android:src="@drawable/ic_suppr_stock" />
 
     <ImageButton
         android:id="@+id/imageButton4"
@@ -41,60 +51,16 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageButton2"
         android:layout_alignTop="@+id/imageButton3"
-        android:src="@drawable/ic_del"
-        android:onClick="supprProduit" />
+        android:onClick="supprProduit"
+        android:src="@drawable/ic_suppr_produit" />
 
-    <TextView
-        android:id="@+id/textView1"
+    <ImageButton
+        android:id="@+id/imageButton5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Choisissez une action"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/txt_refArt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="21dp"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView4"
-        android:layout_alignBottom="@+id/textView4"
-        android:layout_alignParentRight="true"
-        android:text="Supprimer produit" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/imageButton2"
-        android:text="Ajouter Quantité" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/imageButton3"
-        android:text="Supprimer quantité" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageButton1"
-        android:text="Consulter" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:src="@drawable/ic_stat" />
 
 </RelativeLayout>

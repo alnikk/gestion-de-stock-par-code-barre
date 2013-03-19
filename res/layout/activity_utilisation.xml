@@ -11,7 +11,7 @@
         android:layout_alignLeft="@+id/button1"
         android:layout_alignParentTop="true"
         android:layout_marginTop="180dp"
-        android:text="Saisir une reference"
+        android:text="@string/util_key"
         android:onClick="checkRef" />
 
     <Button
@@ -21,7 +21,7 @@
         android:layout_alignBottom="@+id/button2"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="72dp"
-        android:text="Prendre une photo"
+        android:text="@string/util_photo"
         android:onClick="photo" />
 
 </RelativeLayout>

@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
-        android:text="Vue d'ensemble"
+        android:text="@string/cons_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -21,7 +21,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="42dp"
-        android:text="Reference"
+        android:text="@string/cons_ref"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="44dp"
-        android:text="Nom"
+        android:text="@string/cons_nom"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:text="Quantité"
+        android:text="@string/cons_qte"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -50,7 +50,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView4"
         android:layout_marginTop="44dp"
-        android:text="Description"
+        android:text="@string/cons_desc"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -109,7 +109,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/txt_desc"
         android:layout_marginTop="22dp"
-        android:text="Prix unitaire"
+        android:text="@string/cons_prix"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
