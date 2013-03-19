@@ -86,7 +86,8 @@ public final class R {
         public static final int cons_qte=0x7f04000f;
         public static final int cons_ref=0x7f04000d;
         public static final int cons_title=0x7f04000c;
-        public static final int hello_world=0x7f04001d;
+        public static final int exec=0x7f04001b;
+        public static final int hello_world=0x7f04001f;
         public static final int menu_settings=0x7f040001;
         public static final int new_art_add=0x7f040006;
         public static final int new_art_desc=0x7f040009;
@@ -94,12 +95,13 @@ public final class R {
         public static final int new_art_prix=0x7f04000b;
         public static final int new_art_qte=0x7f04000a;
         public static final int new_art_ref=0x7f040007;
+        public static final int search=0x7f04001c;
         public static final int title_activity_add__qte=0x7f040017;
         public static final int title_activity_add_qte=0x7f04001a;
         public static final int title_activity_choix_action=0x7f040014;
         public static final int title_activity_new_article=0x7f040015;
-        public static final int title_activity_open_id=0x7f04001b;
-        public static final int title_activity_popup_maison=0x7f04001c;
+        public static final int title_activity_open_id=0x7f04001d;
+        public static final int title_activity_popup_maison=0x7f04001e;
         public static final int title_activity_result=0x7f040016;
         public static final int title_activity_suppr_qte=0x7f040019;
         public static final int title_activity_utilisation=0x7f040018;

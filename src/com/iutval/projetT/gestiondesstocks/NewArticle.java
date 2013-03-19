@@ -45,7 +45,7 @@ public class NewArticle extends Activity
 	 * It used to send user input data (key in before), to the database
 	 * for creating new products in this one.
 	 */
-	public void valider(View view) // TODO string.xml
+	public void valider(View view)
 	{
 		// Get the name of the products
 		TextView zt_nom = (TextView) findViewById(R.id.zt_nom);

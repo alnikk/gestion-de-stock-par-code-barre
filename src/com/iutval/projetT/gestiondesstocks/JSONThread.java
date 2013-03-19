@@ -83,7 +83,7 @@ public class JSONThread extends Thread
 		this.art.setId(ref);
 		this.exist = false;
 		this.prgD = new ProgressDialog(c);
-		this.prgD.setTitle("Search"); // TODO String.xml
+		this.prgD.setTitle("@string/search");
 		this.prgD.setMessage("Receptions des informations");
 		this.prgD.show();
 	}

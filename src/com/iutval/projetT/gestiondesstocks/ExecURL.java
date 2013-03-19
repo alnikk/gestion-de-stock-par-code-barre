@@ -153,7 +153,7 @@ public class ExecURL extends Thread
 	private void createWait()
 	{
 		this.prgD = new ProgressDialog(this.context); // Send the context activity to the progressDialog
-		this.prgD.setTitle("Execution"); // TODO Changer dans String
+		this.prgD.setTitle("@string/exec");
 		this.prgD.setMessage("Receptions des informations");
 		this.prgD.show();
 	}

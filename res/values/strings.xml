@@ -36,6 +36,9 @@
     <string name="title_activity_suppr_qte">Supprimer du stock</string>
     <string name="title_activity_add_qte">Ajouter du stock</string>
     
+    <string name="exec">Execution</string>
+    <string name="search">Recherche</string>
+    
     
     <string name="title_activity_open_id">OpenId</string>
     <string name="title_activity_popup_maison">PopupMaison</string>
