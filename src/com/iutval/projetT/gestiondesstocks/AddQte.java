@@ -27,8 +27,11 @@ public class AddQte extends Activity
 		setContentView(R.layout.activity_popup_maison);
 		
 		// Get product reference
-		Intent intent = getIntent();		
-		this.ref = intent.getExtras().getInt("refArt");		
+		Intent intent = getIntent();
+		this.ref = intent.getExtras().getInt("refArt");
+		
+		TextView txt = (TextView) findViewById(R.id.title);
+		txt.setText(R.string.addQte);
 	}
 	
 	public void annuler(View view)

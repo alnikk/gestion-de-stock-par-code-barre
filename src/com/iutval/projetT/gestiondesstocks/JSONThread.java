@@ -21,7 +21,6 @@ import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
 
 /**
  * Class to handle JSON in external process
@@ -129,8 +128,6 @@ public class JSONThread extends Thread
 				while ((line = reader.readLine()) != null)
 					builder.append(line);
 			}
-			else 
-				Log.e(ChoixAction.class.toString(), "Failed to download file");
 		}
 		catch (ClientProtocolException e) 
 		{

@@ -13,7 +13,7 @@ import android.widget.Toast;
  * @author Alexandre Guyon
  */
 public class OpenId extends Activity 
-{	
+{		
 	//******************** State *****************************
 	
 	@Override
@@ -21,6 +21,12 @@ public class OpenId extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_popup_maison);
+		
+		Intent intent = getIntent();
+		String title = intent.getExtras().getString("title");
+		
+		TextView txt = (TextView) findViewById(R.id.title);
+		txt.setText(title);
 	}
 	
 	//****************** Button ****************************

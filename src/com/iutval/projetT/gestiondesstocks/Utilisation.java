@@ -40,6 +40,7 @@ public class Utilisation extends FragmentActivity
 	public void checkRef(View view)
 	{
 		Intent intent = new Intent(this, OpenId.class);
+		intent.putExtra("title", getResources().getString(R.string.utilisation_title));
 		startActivity(intent);
 	}
 }

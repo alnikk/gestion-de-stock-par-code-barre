@@ -38,6 +38,9 @@
     
     <string name="exec">Execution</string>
     <string name="search">Recherche</string>
+    <string name="utilisation_title">Entrez une référence</string>
+    <string name="addQte">Entrez une quantité à ajouter</string>
+    <string name="supprQte">Entrez une quantité à supprimer</string>
     
     
     <string name="title_activity_open_id">OpenId</string>

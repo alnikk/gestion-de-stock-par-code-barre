@@ -31,25 +31,18 @@ public class SupprProduit extends DialogFragment
     {
     	DialogInterface.OnClickListener listenner = new DialogInterface.OnClickListener()
         {
-            private int ref = 0;
-
             public void onClick(DialogInterface dialog, int id) 
             {
-         	   if(this.ref != 0)
+         	   if(ref != 0)
          	   {
          		   Article articleQte = new Article();
-        				articleQte.setId(this.ref);
-        				articleQte.setAct(Action.DELETE);
+        			articleQte.setId(ref);
+        			articleQte.setAct(Action.DELETE);
         				
-        				ExecURL add = new ExecURL();
-        				add.sendArt(articleQte);
-        				add.start();
+        			ExecURL add = new ExecURL();
+        			add.sendArt(articleQte);
+        			add.start();
          	   }
-            }
-            
-            public void setRef(int ref)
-            {
-         	   this.ref = ref;
             }
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

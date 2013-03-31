@@ -9,7 +9,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
 
 public class ExecURL extends Thread
 {
@@ -126,8 +125,6 @@ public class ExecURL extends Thread
 		
 		// Remove all space in request
 		url = url.replaceAll(" ", "%20");
-		
-		Log.d("ExecURL.class", url);
 		
 		// Request on server
 		HttpClient client = new DefaultHttpClient();

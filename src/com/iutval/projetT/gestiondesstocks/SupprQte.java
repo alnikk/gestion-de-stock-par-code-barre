@@ -27,7 +27,10 @@ public class SupprQte extends Activity
 		setContentView(R.layout.activity_popup_maison);
 		
 		Intent intent = getIntent();		
-		this.ref = intent.getExtras().getInt("refArt");		
+		this.ref = intent.getExtras().getInt("refArt");
+		
+		TextView txt = (TextView) findViewById(R.id.title);
+		txt.setText(R.string.supprQte);
 	}
 	
 	//***************************** Buttons **********************
