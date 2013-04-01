@@ -1,6 +1,7 @@
 package com.iutval.projetT.gestiondesstocks;
 
 import android.hardware.Camera;
+import android.util.Log;
 
 /**
  * This class used to handle pictures took from camera
@@ -20,6 +21,7 @@ public class CamPicture implements Camera.PictureCallback
 	@Override
     public void onPictureTaken(byte[] data, Camera camera)
 	{
+		Log.d("CamPicture.class","beuh");
 		this.data = data;
 	}
 	

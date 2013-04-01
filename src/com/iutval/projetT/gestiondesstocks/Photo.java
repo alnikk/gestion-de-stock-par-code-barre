@@ -1,6 +1,10 @@
 package com.iutval.projetT.gestiondesstocks;
 
+import com.iutval.projetT.gestiondesstocks.in.Bitmap;
+import com.iutval.projetT.gestiondesstocks.in.CbitMap;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -9,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.hardware.Camera.AutoFocusCallback;
 
 
 /**
@@ -86,13 +91,29 @@ public class Photo extends Activity
 		byte[] photo;
 		int refArt = 0;
 
+		
+		camera.autoFocus(new AutoFocusCallback() 
+		{
+		    @Override
+		    public void onAutoFocus(boolean success, Camera camera)
+		    {
+		    	camera.takePicture(null, null, pic);
+		    }
+		});
+		
+		
 		// Took photo
-		camera.takePicture(null, null, this.pic);
+		
 		photo = this.pic.getData();
 
+		
+		if(photo == null)
+			Log.d("Photo.class", "coucou");
 		// Send it to algorithm 
-		// refArt = decode(photo);
-		refArt = (int) (Math.random() * 10);
+		Bitmap bitmap = new Bitmap(photo);
+		CbitMap d = new CbitMap(bitmap);
+		refArt = Integer.parseInt(d.decodage().toString());
+		//refArt = (int) (Math.random() * 10);
 		Toast.makeText(getApplicationContext(), "id = " + refArt, Toast.LENGTH_SHORT).show(); // TODO Debug
 
 		// Gives argument
