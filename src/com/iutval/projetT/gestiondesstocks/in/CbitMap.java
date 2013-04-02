@@ -4,14 +4,17 @@ import android.util.Log;
 
 public class CbitMap {
 
-	private Cplan planBleu;
-	private Cplan planRouge;
-	private Cplan planVert;
+	private Cplan plan;
 	private int hauteurImage;
 	private int largeurImage;
+	private Caractere tabCar[];
+	
+	private HashMap<int,char> caractere;
 	
 	private final static int NB_BARRES=9;
 	private final static int MARGE=1;
+	private final static int TAILLE_TAB=9;
+	private final static int SEUIL = 128;
 	
 	public CbitMap()
 	{
@@ -21,148 +24,87 @@ public class CbitMap {
 	
 	public CbitMap(Bitmap bm)
 	{
-		this.largeurImage=this.recupInfo(bm, 4, 18);
-		this.hauteurImage=this.recupInfo(bm, 4, 22);
-		this.planBleu=new Cplan(largeurImage,hauteurImage);
-		this.planRouge=new Cplan(largeurImage,hauteurImage);
-		this.planVert=new Cplan(largeurImage,hauteurImage);
-		splitInto3Plan(bm);
-	}
-	
-	private int recupInfo(Bitmap bm, int nbOctets, int offset)
-	{
-		int resultat=0;
-		int i;
-		for(i=nbOctets-1;i>=0;i--)
+		int intensite = 0;
+		Color couleur;
+		this.largeurImage=bm.getWidth();
+		this.hauteurImage=bm.getHeigh();
+		this.plan=new Cplan(largeurImage,hauteurImage);
+		for (x=0; x<largeurImage; x++)
 		{
-			resultat=resultat*256+bm.getElt(i+offset);
-		}
-		return resultat;
-	}
-	
-	private void splitInto3Plan(Bitmap bm)
-	{
-		int ligne, colonne, nbOctetsPadding;
-		int posPixel=0;
-		int cpt=0;
-		nbOctetsPadding=this.largeurImage%4;
-		for(ligne=0;ligne<this.hauteurImage;ligne++)
-		{
-			for(colonne=0;colonne<this.largeurImage;colonne++)
+			for (y=0; y<hauteurImage; y++)
 			{
-				this.planBleu.setPixel(posPixel, bm.getElt(cpt));
-				cpt++;
-				this.planVert.setPixel(posPixel, bm.getElt(cpt));
-				cpt++;
-				this.planRouge.setPixel(posPixel, bm.getElt(cpt));
-				posPixel++;
-				cpt++;
+				couleur = bm.getPixel(x,y);
+				if((Color.red(couleur)*0.3+Color.green(couleur)*0.59+Color.blue(couleur)*0.11) > SEUIL)
+					intensite = 255;
+				else
+					intensite = 0;
+				this.plan.setPixel(x,y,intensite);
 			}
-			cpt+=nbOctetsPadding;
 		}
-	}
 		
-	private byte getGrayPixel(int x, int y)
-	{
-		byte r,v,b;
-		r=this.planRouge.getPixel(x, y);
-		v=this.planVert.getPixel(x, y);
-		b=this.planBleu.getPixel(x, y);
-		return (byte) (0.3*r+0.59*v+0.11*b);
+		caractere.put(265,'A');
+		caractere.put(73,'B');
+		caractere.put(328,'C');
+		caractere.put(25,'D');
+		caractere.put(280,'E');
+		caractere.put(88,'F');
+		caractere.put(13,'G');
+		caractere.put(268,'H');
+		caractere.put(76,'I');	
+		caractere.put(28,'J');
+		caractere.put(259,'K');
+		caractere.put(67,'L');
+		caractere.put(322,'M');
+		caractere.put(19,'N');
+		caractere.put(274,'O');	
+		caractere.put(82,'P');
+		caractere.put(7,'Q');
+		caractere.put(262,'R');
+		caractere.put(70,'S');
+		caractere.put(22,'T');
+		caractere.put(385,'U');
+		caractere.put(193,'V');
+		caractere.put(448,'W');
+		caractere.put(145,'X');
+		caractere.put(400,'Y');
+		caractere.put(208,'Z');
+		caractere.put(52,'0');
+		caractere.put(289,'1');
+		caractere.put(97,'2');
+		caractere.put(352,'3');
+		caractere.put(449,'4');
+		caractere.put(304,'5');
+		caractere.put(112,'6');
+		caractere.put(37,'7');
+		caractere.put(292,'8');
+		caractere.put(100,'9');
+		caractere.put(148,'*');
 	}
 	
-	private byte getGrayPixel(int pos)
-	{
-		byte r,v,b;
-		r=this.planRouge.getPixel(pos);
-		v=this.planVert.getPixel(pos);
-		b=this.planBleu.getPixel(pos);
-		return (byte) (0.3*r+0.59*v+0.11*b);
-	}
-	
-	private void setGrayPixel(int pos, byte intensite)
-	{
-		this.planRouge.setPixel(pos,intensite);
-		this.planVert.setPixel(pos,intensite);
-		this.planBleu.setPixel(pos,intensite);
-	}
 	
 	
-	public void seuillage(byte seuils[], byte gris[])
-	{
-		int i,n;
-		byte pixelCourant;
-		for(i=0;i<this.hauteurImage*this.largeurImage;i++)
-		{
-			pixelCourant=this.getGrayPixel(i);
-			n=0;
-			while(seuils[n]<pixelCourant)
-				n++;
-			pixelCourant=gris[n];
-			this.setGrayPixel(i, pixelCourant);
-		}
-	}
-	
-	public char[] decodage()
+	public int decodage()
 	{
 		int cmpBarre=0;
 		int cmpPixel=0;
-		int cmpCar=1;
+		int cmpCar=0;
 		int largeurMin=0;
 		int largeurMax=0;
 		int milieu=this.hauteurImage/2;
 		int i=0;
+		int bitCode = 0;
+		int resbitCode = 0;
 		byte couleur;
 		boolean premierPassage=true;
-		int tab[] = null;
 		char res[] = null;
 		char temp;
 		
-		Caractere carA = new Caractere('A',Caractere.TAB_A);
-		Caractere carB = new Caractere('B',Caractere.TAB_B);
-		Caractere carC = new Caractere('C',Caractere.TAB_C);
-		Caractere carD = new Caractere('D',Caractere.TAB_D);
-		Caractere carE = new Caractere('E',Caractere.TAB_E);
-		Caractere carF = new Caractere('F',Caractere.TAB_F);
-		Caractere carG = new Caractere('G',Caractere.TAB_G);
-		Caractere carH = new Caractere('H',Caractere.TAB_H);
-		Caractere carI = new Caractere('I',Caractere.TAB_I);
-		Caractere carJ = new Caractere('J',Caractere.TAB_J);
-		Caractere carK = new Caractere('K',Caractere.TAB_K);
-		Caractere carL = new Caractere('L',Caractere.TAB_L);
-		Caractere carM = new Caractere('M',Caractere.TAB_M);
-		Caractere carN = new Caractere('N',Caractere.TAB_N);
-		Caractere carO = new Caractere('O',Caractere.TAB_O);
-		Caractere carP = new Caractere('P',Caractere.TAB_P);
-		Caractere carQ = new Caractere('Q',Caractere.TAB_Q);
-		Caractere carR = new Caractere('R',Caractere.TAB_R);
-		Caractere carS = new Caractere('S',Caractere.TAB_S);
-		Caractere carT = new Caractere('T',Caractere.TAB_T);
-		Caractere carU = new Caractere('U',Caractere.TAB_U);
-		Caractere carV = new Caractere('V',Caractere.TAB_V);
-		Caractere carW = new Caractere('W',Caractere.TAB_W);
-		Caractere carX = new Caractere('X',Caractere.TAB_X);
-		Caractere carY = new Caractere('Y',Caractere.TAB_Y);
-		Caractere carZ = new Caractere('Z',Caractere.TAB_Z);
-		Caractere car0 = new Caractere('0',Caractere.TAB_0);
-		Caractere car1 = new Caractere('1',Caractere.TAB_1);
-		Caractere car2 = new Caractere('2',Caractere.TAB_2);
-		Caractere car3 = new Caractere('3',Caractere.TAB_3);
-		Caractere car4 = new Caractere('4',Caractere.TAB_4);
-		Caractere car5 = new Caractere('5',Caractere.TAB_5);
-		Caractere car6 = new Caractere('6',Caractere.TAB_6);
-		Caractere car7 = new Caractere('7',Caractere.TAB_7);
-		Caractere car8 = new Caractere('8',Caractere.TAB_8);
-		Caractere car9 = new Caractere('9',Caractere.TAB_9);
-		Caractere carEtoile = new Caractere('*',Caractere.TAB_ETOILE);
-		Caractere tabCar[] = {carA,carB,carC,carD,carE,carF,carG,carH,carI,carJ,carK,carL,carM,carN,carO,carP,carQ,carR,carS,carT,carU,carV,carW,carX,carY,carZ,car0,car1,car2,car3,car4,car5,car6,car7,car8,car9,carEtoile};
-
-		while(this.getGrayPixel(i, milieu)==255)
+		while(this.plan.getPixel(i, milieu)==255)
 			i++;
 		if(premierPassage)
 		{
-			couleur=this.getGrayPixel(i,milieu);
-			while(couleur==this.getGrayPixel(i,milieu))
+			couleur = this.plan.getPixel(i, milieu);
+			while(couleur==this.plan.getPixel(i, milieu))
 			{
 				cmpPixel++;
 				i++;
@@ -176,8 +118,8 @@ public class CbitMap {
 		
 		while(cmpBarre<NB_BARRES)
 		{
-			couleur=this.getGrayPixel(i,milieu);
-			while(couleur==this.getGrayPixel(i,milieu))
+			couleur=this.plan.getPixel(i, milieu);
+			while(couleur==this.plan.getPixel(i, milieu))
 			{
 				cmpPixel++;
 				i++;
@@ -193,86 +135,87 @@ public class CbitMap {
 		i=0;
 		cmpBarre=0;
 
-		while(this.getGrayPixel(i,milieu)!=0)
+		while(this.plan.getPixel(i, milieu)!=0)
 			i++;
 
 		while(cmpBarre<NB_BARRES)
 		{
-			couleur=this.getGrayPixel(i,milieu);
-			while(this.getGrayPixel(i,milieu)==couleur)
+			couleur=this.plan.getPixel(i, milieu);
+			while(this.plan.getPixel(i, milieu)==couleur)
 			{
 				cmpPixel++;
 				i++;
 			}
 			if(cmpPixel<=largeurMin+MARGE && cmpPixel>=largeurMin-MARGE)
-				tab[cmpBarre]=0;
-		
+			{
+				bitCode = 0;
+			}
 			if(cmpPixel<=largeurMax+MARGE && cmpPixel>=largeurMax-MARGE)
-				tab[cmpBarre]=1;
-
+			{
+				bitCode = 1;
+			}
+			resBitCode = resbitCode + bitCode*((int)math.pow(2,(8-cmpBarre)));
 			cmpPixel=0;
 			cmpBarre++;
 		}
-		
-		if (compareCar(tab,Caractere.TAB_ETOILE) == false)
+		if(resBitCode != 148)) // 148 -> code de l'�toile
+		{
+			// premier caract�re diff�rent de l'�toile -> pas bon => retourner une erreur
+			return null;
+		}
+		/*if (compareCar(tab,Caractere.TAB_ETOILE) == false)
 			return res;
+		*/
 		cmpBarre=0;
-		for(int n=0;n<Caractere.TAILLE_TAB;n++)
-			tab[n]=0;
+		resBitCode = 0;
 		
-		couleur=this.getGrayPixel(i,milieu);
-		while(this.getGrayPixel(i,milieu)==couleur)
+		couleur=this.plan.getPixel(i, milieu);
+		while(this.plan.getPixel(i, milieu)==couleur)
 			i++;
 		
-		while(compareCar(tab,Caractere.TAB_ETOILE)==false)
+		while(true) // tant qu'on n'arrive pas au caract�re de fin
 		{
 			while(cmpBarre<NB_BARRES)
 			{
-				couleur=this.getGrayPixel(i,milieu);
-				while(this.getGrayPixel(i,milieu)==couleur)
+				couleur=this.plan.getPixel(i, milieu);
+				while(this.plan.getPixel(i, milieu)==couleur)
 				{
 					cmpPixel++;
 					i++;
 				}
 				
 				if(cmpPixel<=largeurMin+MARGE && cmpPixel>=largeurMin-MARGE)
-					tab[cmpBarre]=0;
-
+					bitCode = 0;
 				if(cmpPixel<=largeurMax+MARGE && cmpPixel>=largeurMax-MARGE)
-					tab[cmpBarre]=1;
+					bitCode = 1;
+				resBitCode = resbitCode + bitCode*((int)math.pow(2,(8-cmpBarre)));
 				cmpPixel=0;
 				cmpBarre++;
-				
-				int a=0;
-
-				while ((a<=37) && (compareCar(tab,tabCar[a].getTab()) == false))
-					a++;
-
-				if(a<36)
-				{
-					temp = tabCar[a].getCar();
-					res[cmpCar]=temp;
-					cmpCar++;
-				}
-
-				cmpBarre=0;
-				
-				couleur=this.getGrayPixel(i,milieu);
-				while(this.getGrayPixel(i,milieu)==couleur)
-					i++;
+					
 			}
+			if(resBitCode == 148)
+			{
+				break;
+			}
+			if(caractere.containsKey(resBitCode))
+			{
+				res = res.concat(caractere.get(resBitCode))
+				cmpCar++;
+			}
+			else
+			{
+				//ERREUR
+				return null;
+			}
+			resBitCode=0;
+			cmpBarre=0;
+			couleur=this.plan.getPixel(i, milieu);
+			while(this.plan.getPixel(i, milieu)==couleur)
+				i++;
 		}
 		
-		return res;
+		//Log.d("CbitMap.class", "coucou");
+		return Integer.parseInt(res); 
 	}
 	
-	public boolean compareCar(int tab[],int tab2[])
-	{
-		for(int i=0;i<9;i++)
-		{
-			if(tab[i]!=tab2[i])
-				return false;
-		}
-		return true;
-	}
 }
