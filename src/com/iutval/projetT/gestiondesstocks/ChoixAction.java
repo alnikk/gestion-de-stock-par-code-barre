@@ -31,7 +31,7 @@ public class ChoixAction extends FragmentActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
-		Log.d("ChoixAction.class","coucou");
+		Log.d("ChoixAction.class","Dans ChoixAction");
 		// Initializations
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_choix_action);

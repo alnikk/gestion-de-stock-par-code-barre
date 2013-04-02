@@ -7,7 +7,7 @@
     <string name="bt_val">Valider</string>
     <string name="bt_cancel">Annuler</string>
     
-    <string name="bt_capture">Prendre en Photo</string>
+    <string name="bt_capture">Sortir du mode photo et valider cette identifiant</string>
     
     <string name="choix_action_title">Choisissez une action</string>
     
@@ -41,6 +41,8 @@
     <string name="utilisation_title">Entrez une référence</string>
     <string name="addQte">Entrez une quantité à ajouter</string>
     <string name="supprQte">Entrez une quantité à supprimer</string>
+    <string name="toastPhoto">Appuyer sur l\'ecran pour prendre une photo du code à barres</string>
+    <string name="toastIdDecode">L\'identifiant de l\'article est </string>
     
     
     <string name="title_activity_open_id">OpenId</string>

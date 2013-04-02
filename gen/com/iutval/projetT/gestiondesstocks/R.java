@@ -24,7 +24,6 @@ public final class R {
         public static final int bt_val=0x7f070015;
         public static final int button1=0x7f07000f;
         public static final int button2=0x7f07001c;
-        public static final int camera_preview=0x7f070011;
         public static final int capture=0x7f070012;
         public static final int imageButton1=0x7f070002;
         public static final int imageButton2=0x7f070001;
@@ -32,6 +31,7 @@ public final class R {
         public static final int imageButton4=0x7f070004;
         public static final int imageButton5=0x7f070005;
         public static final int menu_settings=0x7f07001d;
+        public static final int surfaceViewCamera=0x7f070011;
         public static final int textView1=0x7f070000;
         public static final int textView2=0x7f070008;
         public static final int textView3=0x7f070010;
@@ -86,7 +86,7 @@ public final class R {
         public static final int cons_ref=0x7f04000d;
         public static final int cons_title=0x7f04000c;
         public static final int exec=0x7f04001b;
-        public static final int hello_world=0x7f040022;
+        public static final int hello_world=0x7f040024;
         public static final int menu_settings=0x7f040001;
         public static final int new_art_add=0x7f040006;
         public static final int new_art_desc=0x7f040009;
@@ -100,11 +100,13 @@ public final class R {
         public static final int title_activity_add_qte=0x7f04001a;
         public static final int title_activity_choix_action=0x7f040014;
         public static final int title_activity_new_article=0x7f040015;
-        public static final int title_activity_open_id=0x7f040020;
-        public static final int title_activity_popup_maison=0x7f040021;
+        public static final int title_activity_open_id=0x7f040022;
+        public static final int title_activity_popup_maison=0x7f040023;
         public static final int title_activity_result=0x7f040016;
         public static final int title_activity_suppr_qte=0x7f040019;
         public static final int title_activity_utilisation=0x7f040018;
+        public static final int toastIdDecode=0x7f040021;
+        public static final int toastPhoto=0x7f040020;
         public static final int util_key=0x7f040013;
         public static final int util_photo=0x7f040012;
         public static final int utilisation_title=0x7f04001d;
