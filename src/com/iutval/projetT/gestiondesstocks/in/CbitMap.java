@@ -1,6 +1,9 @@
 package com.iutval.projetT.gestiondesstocks.in;
 
-import android.util.Log;
+import java.util.HashMap;
+
+import android.graphics.Bitmap;
+import android.graphics.Color;
 
 public class CbitMap {
 
@@ -9,7 +12,7 @@ public class CbitMap {
 	private int largeurImage;
 	private Caractere tabCar[];
 	
-	private HashMap<int,char> caractere;
+	private HashMap<Integer,Character> caractere;
 	
 	private final static int NB_BARRES=9;
 	private final static int MARGE=1;
@@ -20,14 +23,16 @@ public class CbitMap {
 	{
 		hauteurImage=0;
 		largeurImage=0;
+		this.caractere = new HashMap<Integer,Character>();
 	}
 	
 	public CbitMap(Bitmap bm)
 	{
 		int intensite = 0;
-		Color couleur;
+		int x,y;
+		int couleur;
 		this.largeurImage=bm.getWidth();
-		this.hauteurImage=bm.getHeigh();
+		this.hauteurImage=bm.getHeight();
 		this.plan=new Cplan(largeurImage,hauteurImage);
 		for (x=0; x<largeurImage; x++)
 		{
@@ -93,10 +98,10 @@ public class CbitMap {
 		int milieu=this.hauteurImage/2;
 		int i=0;
 		int bitCode = 0;
-		int resbitCode = 0;
-		byte couleur;
+		int resBitCode = 0;
+		int couleur;
 		boolean premierPassage=true;
-		char res[] = null;
+		String res = null;
 		char temp;
 		
 		while(this.plan.getPixel(i, milieu)==255)
@@ -154,14 +159,14 @@ public class CbitMap {
 			{
 				bitCode = 1;
 			}
-			resBitCode = resbitCode + bitCode*((int)math.pow(2,(8-cmpBarre)));
+			resBitCode = resBitCode + bitCode*((int)Math.pow(2,(8-cmpBarre)));
 			cmpPixel=0;
 			cmpBarre++;
 		}
-		if(resBitCode != 148)) // 148 -> code de l'�toile
+		if(resBitCode != 148) // 148 -> code de l'�toile
 		{
 			// premier caract�re diff�rent de l'�toile -> pas bon => retourner une erreur
-			return null;
+			return -1;
 		}
 		/*if (compareCar(tab,Caractere.TAB_ETOILE) == false)
 			return res;
@@ -188,7 +193,7 @@ public class CbitMap {
 					bitCode = 0;
 				if(cmpPixel<=largeurMax+MARGE && cmpPixel>=largeurMax-MARGE)
 					bitCode = 1;
-				resBitCode = resbitCode + bitCode*((int)math.pow(2,(8-cmpBarre)));
+				resBitCode = resBitCode + bitCode*((int)Math.pow(2,(8-cmpBarre)));
 				cmpPixel=0;
 				cmpBarre++;
 					
@@ -199,13 +204,13 @@ public class CbitMap {
 			}
 			if(caractere.containsKey(resBitCode))
 			{
-				res = res.concat(caractere.get(resBitCode))
+				res = res + caractere.get(resBitCode);
 				cmpCar++;
 			}
 			else
 			{
 				//ERREUR
-				return null;
+				return -1;
 			}
 			resBitCode=0;
 			cmpBarre=0;
@@ -214,7 +219,6 @@ public class CbitMap {
 				i++;
 		}
 		
-		//Log.d("CbitMap.class", "coucou");
 		return Integer.parseInt(res); 
 	}
 	

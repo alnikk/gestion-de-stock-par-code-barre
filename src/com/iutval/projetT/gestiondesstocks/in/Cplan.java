@@ -4,7 +4,7 @@ public class Cplan {
 
 	private int hauteurPlan;
 	private int largeurPlan;
-	private byte plan[];
+	private int plan[];
 	
 	public Cplan()
 	{
@@ -33,22 +33,22 @@ public class Cplan {
 		return this.hauteurPlan;
 	}
 	
-	public byte getPixel(int pos)
+	public int getPixel(int pos)
 	{
 		return plan[pos];
 	}
 	
-	public byte getPixel(int x, int y)
+	public int getPixel(int x, int y)
 	{
 		return plan[y*this.largeurPlan+x];
 	}
 	
-	public void setPixel(int pos, byte intensite)
+	public void setPixel(int pos, int intensite)
 	{
 		plan[pos]=intensite;
 	}
 	
-	public void setPixel(int x, int y, byte intensite)
+	public void setPixel(int x, int y, int intensite)
 	{
 		plan[y*this.largeurPlan+x]=intensite;
 	}
