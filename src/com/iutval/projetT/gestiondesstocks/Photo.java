@@ -2,6 +2,8 @@ package com.iutval.projetT.gestiondesstocks;
 
 import java.io.IOException;
 
+import com.iutval.projetT.gestiondesstocks.in.CbitMap;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -137,9 +139,15 @@ public class Photo extends Activity implements Camera.PictureCallback, SurfaceHo
 		
 		Bitmap photo = BitmapFactory.decodeByteArray(data, 0, data.length);
 		
-		/*CbitMap d = new CbitMap(bitmap);
-		this.refArt = Integer.parseInt(d.decodage().toString());*/
-		
+		CbitMap d = new CbitMap(photo);
+		d.start();
+		try {
+			d.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.refArt = d.getRes();
 		camera.startPreview();
 		Toast.makeText(getApplicationContext(), R.string.toastIdDecode + refArt, Toast.LENGTH_SHORT).show();
 	}

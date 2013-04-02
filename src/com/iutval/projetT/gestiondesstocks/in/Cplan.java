@@ -1,5 +1,7 @@
 package com.iutval.projetT.gestiondesstocks.in;
 
+import android.util.Log;
+
 public class Cplan {
 
 	private int hauteurPlan;
@@ -17,10 +19,9 @@ public class Cplan {
 		int i;
 		hauteurPlan=hauteur;
 		largeurPlan=largeur;
-		for(i=0;i<hauteur*largeur;i++)
-		{
+		this.plan = new int[hauteur*largeur+largeur];
+		for(i=0;i<hauteur*largeur+largeur;i++)
 			plan[i]=0;
-		}
 	}
 	
 	public int getLargeur()

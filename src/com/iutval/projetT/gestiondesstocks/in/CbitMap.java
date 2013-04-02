@@ -4,27 +4,22 @@ import java.util.HashMap;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.util.Log;
 
-public class CbitMap {
+public class CbitMap extends Thread 
+{
+	private int resultat = 0;
 
 	private Cplan plan;
 	private int hauteurImage;
 	private int largeurImage;
-	private Caractere tabCar[];
 	
 	private HashMap<Integer,Character> caractere;
 	
 	private final static int NB_BARRES=9;
 	private final static int MARGE=1;
 	private final static int TAILLE_TAB=9;
-	private final static int SEUIL = 128;
-	
-	public CbitMap()
-	{
-		hauteurImage=0;
-		largeurImage=0;
-		this.caractere = new HashMap<Integer,Character>();
-	}
+	private final static int SEUIL = 80;
 	
 	public CbitMap(Bitmap bm)
 	{
@@ -33,20 +28,20 @@ public class CbitMap {
 		int couleur;
 		this.largeurImage=bm.getWidth();
 		this.hauteurImage=bm.getHeight();
+		this.caractere = new HashMap<Integer,Character>();
 		this.plan=new Cplan(largeurImage,hauteurImage);
+		int milieu=this.hauteurImage/2;
 		for (x=0; x<largeurImage; x++)
 		{
-			for (y=0; y<hauteurImage; y++)
-			{
-				couleur = bm.getPixel(x,y);
+				couleur = bm.getPixel(x,milieu);
 				if((Color.red(couleur)*0.3+Color.green(couleur)*0.59+Color.blue(couleur)*0.11) > SEUIL)
 					intensite = 255;
 				else
 					intensite = 0;
-				this.plan.setPixel(x,y,intensite);
-			}
+				this.plan.setPixel(x,milieu,intensite);
+				Log.d("CbitMap.class",intensite + "");
 		}
-		
+		Bitmap b = new Bitmap();
 		caractere.put(265,'A');
 		caractere.put(73,'B');
 		caractere.put(328,'C');
@@ -88,7 +83,7 @@ public class CbitMap {
 	
 	
 	
-	public int decodage()
+	public void run()
 	{
 		int cmpBarre=0;
 		int cmpPixel=0;
@@ -124,7 +119,7 @@ public class CbitMap {
 		while(cmpBarre<NB_BARRES)
 		{
 			couleur=this.plan.getPixel(i, milieu);
-			while(couleur==this.plan.getPixel(i, milieu))
+			while(i < this.largeurImage -1 && couleur==this.plan.getPixel(i, milieu))
 			{
 				cmpPixel++;
 				i++;
@@ -136,6 +131,8 @@ public class CbitMap {
 			cmpPixel=0;
 			cmpBarre++;
 		}
+		
+		//Log.d("CbitMap.class",largeurMax + "");
 		
 		i=0;
 		cmpBarre=0;
@@ -166,7 +163,7 @@ public class CbitMap {
 		if(resBitCode != 148) // 148 -> code de l'�toile
 		{
 			// premier caract�re diff�rent de l'�toile -> pas bon => retourner une erreur
-			return -1;
+			this.resultat = -1; //TODO throws exception
 		}
 		/*if (compareCar(tab,Caractere.TAB_ETOILE) == false)
 			return res;
@@ -183,7 +180,7 @@ public class CbitMap {
 			while(cmpBarre<NB_BARRES)
 			{
 				couleur=this.plan.getPixel(i, milieu);
-				while(this.plan.getPixel(i, milieu)==couleur)
+				while(i < this.largeurImage -1 && this.plan.getPixel(i, milieu)==couleur)
 				{
 					cmpPixel++;
 					i++;
@@ -202,6 +199,7 @@ public class CbitMap {
 			{
 				break;
 			}
+			
 			if(caractere.containsKey(resBitCode))
 			{
 				res = res + caractere.get(resBitCode);
@@ -210,16 +208,20 @@ public class CbitMap {
 			else
 			{
 				//ERREUR
-				return -1;
+				this.resultat = -1; //TODO throws exception
 			}
 			resBitCode=0;
 			cmpBarre=0;
 			couleur=this.plan.getPixel(i, milieu);
-			while(this.plan.getPixel(i, milieu)==couleur)
+			while(i < this.largeurImage -1 && this.plan.getPixel(i, milieu)==couleur)
 				i++;
 		}
 		
-		return Integer.parseInt(res); 
+		this.resultat = Integer.parseInt(res); 
 	}
 	
+	public int getRes()
+	{
+		return this.resultat;
+	}
 }
