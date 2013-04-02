@@ -9,6 +9,7 @@ public class CbitMap {
 	private Cplan planVert;
 	private int hauteurImage;
 	private int largeurImage;
+	private Caractere tabCar[];
 	
 	private final static int NB_BARRES=9;
 	private final static int MARGE=1;
@@ -27,6 +28,46 @@ public class CbitMap {
 		this.planRouge=new Cplan(largeurImage,hauteurImage);
 		this.planVert=new Cplan(largeurImage,hauteurImage);
 		splitInto3Plan(bm);
+		this.seuillage();
+		
+		Caractere carA = new Caractere('A',Caractere.TAB_A);
+		Caractere carB = new Caractere('B',Caractere.TAB_B);
+		Caractere carC = new Caractere('C',Caractere.TAB_C);
+		Caractere carD = new Caractere('D',Caractere.TAB_D);
+		Caractere carE = new Caractere('E',Caractere.TAB_E);
+		Caractere carF = new Caractere('F',Caractere.TAB_F);
+		Caractere carG = new Caractere('G',Caractere.TAB_G);
+		Caractere carH = new Caractere('H',Caractere.TAB_H);
+		Caractere carI = new Caractere('I',Caractere.TAB_I);
+		Caractere carJ = new Caractere('J',Caractere.TAB_J);
+		Caractere carK = new Caractere('K',Caractere.TAB_K);
+		Caractere carL = new Caractere('L',Caractere.TAB_L);
+		Caractere carM = new Caractere('M',Caractere.TAB_M);
+		Caractere carN = new Caractere('N',Caractere.TAB_N);
+		Caractere carO = new Caractere('O',Caractere.TAB_O);
+		Caractere carP = new Caractere('P',Caractere.TAB_P);
+		Caractere carQ = new Caractere('Q',Caractere.TAB_Q);
+		Caractere carR = new Caractere('R',Caractere.TAB_R);
+		Caractere carS = new Caractere('S',Caractere.TAB_S);
+		Caractere carT = new Caractere('T',Caractere.TAB_T);
+		Caractere carU = new Caractere('U',Caractere.TAB_U);
+		Caractere carV = new Caractere('V',Caractere.TAB_V);
+		Caractere carW = new Caractere('W',Caractere.TAB_W);
+		Caractere carX = new Caractere('X',Caractere.TAB_X);
+		Caractere carY = new Caractere('Y',Caractere.TAB_Y);
+		Caractere carZ = new Caractere('Z',Caractere.TAB_Z);
+		Caractere car0 = new Caractere('0',Caractere.TAB_0);
+		Caractere car1 = new Caractere('1',Caractere.TAB_1);
+		Caractere car2 = new Caractere('2',Caractere.TAB_2);
+		Caractere car3 = new Caractere('3',Caractere.TAB_3);
+		Caractere car4 = new Caractere('4',Caractere.TAB_4);
+		Caractere car5 = new Caractere('5',Caractere.TAB_5);
+		Caractere car6 = new Caractere('6',Caractere.TAB_6);
+		Caractere car7 = new Caractere('7',Caractere.TAB_7);
+		Caractere car8 = new Caractere('8',Caractere.TAB_8);
+		Caractere car9 = new Caractere('9',Caractere.TAB_9);
+		Caractere carEtoile = new Caractere('*',Caractere.TAB_ETOILE);
+		this.tabCar[] = {carA,carB,carC,carD,carE,carF,carG,carH,carI,carJ,carK,carL,carM,carN,carO,carP,carQ,carR,carS,carT,carU,carV,carW,carX,carY,carZ,car0,car1,car2,car3,car4,car5,car6,car7,car8,car9,carEtoile};
 	}
 	
 	private int recupInfo(Bitmap bm, int nbOctets, int offset)
@@ -88,18 +129,17 @@ public class CbitMap {
 	}
 	
 	
-	public void seuillage(byte seuils[], byte gris[])
+	public void seuillage()
 	{
 		int i,n;
 		byte pixelCourant;
 		for(i=0;i<this.hauteurImage*this.largeurImage;i++)
 		{
 			pixelCourant=this.getGrayPixel(i);
-			n=0;
-			while(seuils[n]<pixelCourant)
-				n++;
-			pixelCourant=gris[n];
-			this.setGrayPixel(i, pixelCourant);
+			if pixelCourant < 128
+				this.setGrayPixel(i,0);
+			else
+				this.setGrayPixel(i,255);
 		}
 	}
 	
@@ -118,45 +158,6 @@ public class CbitMap {
 		char res[] = null;
 		char temp;
 		
-		Caractere carA = new Caractere('A',Caractere.TAB_A);
-		Caractere carB = new Caractere('B',Caractere.TAB_B);
-		Caractere carC = new Caractere('C',Caractere.TAB_C);
-		Caractere carD = new Caractere('D',Caractere.TAB_D);
-		Caractere carE = new Caractere('E',Caractere.TAB_E);
-		Caractere carF = new Caractere('F',Caractere.TAB_F);
-		Caractere carG = new Caractere('G',Caractere.TAB_G);
-		Caractere carH = new Caractere('H',Caractere.TAB_H);
-		Caractere carI = new Caractere('I',Caractere.TAB_I);
-		Caractere carJ = new Caractere('J',Caractere.TAB_J);
-		Caractere carK = new Caractere('K',Caractere.TAB_K);
-		Caractere carL = new Caractere('L',Caractere.TAB_L);
-		Caractere carM = new Caractere('M',Caractere.TAB_M);
-		Caractere carN = new Caractere('N',Caractere.TAB_N);
-		Caractere carO = new Caractere('O',Caractere.TAB_O);
-		Caractere carP = new Caractere('P',Caractere.TAB_P);
-		Caractere carQ = new Caractere('Q',Caractere.TAB_Q);
-		Caractere carR = new Caractere('R',Caractere.TAB_R);
-		Caractere carS = new Caractere('S',Caractere.TAB_S);
-		Caractere carT = new Caractere('T',Caractere.TAB_T);
-		Caractere carU = new Caractere('U',Caractere.TAB_U);
-		Caractere carV = new Caractere('V',Caractere.TAB_V);
-		Caractere carW = new Caractere('W',Caractere.TAB_W);
-		Caractere carX = new Caractere('X',Caractere.TAB_X);
-		Caractere carY = new Caractere('Y',Caractere.TAB_Y);
-		Caractere carZ = new Caractere('Z',Caractere.TAB_Z);
-		Caractere car0 = new Caractere('0',Caractere.TAB_0);
-		Caractere car1 = new Caractere('1',Caractere.TAB_1);
-		Caractere car2 = new Caractere('2',Caractere.TAB_2);
-		Caractere car3 = new Caractere('3',Caractere.TAB_3);
-		Caractere car4 = new Caractere('4',Caractere.TAB_4);
-		Caractere car5 = new Caractere('5',Caractere.TAB_5);
-		Caractere car6 = new Caractere('6',Caractere.TAB_6);
-		Caractere car7 = new Caractere('7',Caractere.TAB_7);
-		Caractere car8 = new Caractere('8',Caractere.TAB_8);
-		Caractere car9 = new Caractere('9',Caractere.TAB_9);
-		Caractere carEtoile = new Caractere('*',Caractere.TAB_ETOILE);
-		Caractere tabCar[] = {carA,carB,carC,carD,carE,carF,carG,carH,carI,carJ,carK,carL,carM,carN,carO,carP,carQ,carR,carS,carT,carU,carV,carW,carX,carY,carZ,car0,car1,car2,car3,car4,car5,car6,car7,car8,car9,carEtoile};
-
 		while(this.getGrayPixel(i, milieu)==255)
 			i++;
 		if(premierPassage)
@@ -245,12 +246,12 @@ public class CbitMap {
 				
 				int a=0;
 
-				while ((a<=37) && (compareCar(tab,tabCar[a].getTab()) == false))
+				while ((a<=37) && (compareCar(tab,this.tabCar[a].getTab()) == false))
 					a++;
 
 				if(a<36)
 				{
-					temp = tabCar[a].getCar();
+					temp = this.tabCar[a].getCar();
 					res[cmpCar]=temp;
 					cmpCar++;
 				}
