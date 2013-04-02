@@ -4,9 +4,7 @@ import android.util.Log;
 
 public class CbitMap {
 
-	private Cplan planBleu;
-	private Cplan planRouge;
-	private Cplan planVert;
+	private Cplan plan;
 	private int hauteurImage;
 	private int largeurImage;
 	private Caractere tabCar[];
@@ -16,6 +14,7 @@ public class CbitMap {
 	private final static int NB_BARRES=9;
 	private final static int MARGE=1;
 	private final static int TAILLE_TAB=9;
+	private final static int SEUIL = 128;
 	
 	public CbitMap()
 	{
@@ -25,13 +24,23 @@ public class CbitMap {
 	
 	public CbitMap(Bitmap bm)
 	{
-		this.largeurImage=this.recupInfo(bm, 4, 18);
-		this.hauteurImage=this.recupInfo(bm, 4, 22);
-		this.planBleu=new Cplan(largeurImage,hauteurImage);
-		this.planRouge=new Cplan(largeurImage,hauteurImage);
-		this.planVert=new Cplan(largeurImage,hauteurImage);
-		splitInto3Plan(bm);
-		this.seuillage();
+		int intensite = 0;
+		Color couleur;
+		this.largeurImage=bm.getWidth();
+		this.hauteurImage=bm.getHeigh();
+		this.plan=new Cplan(largeurImage,hauteurImage);
+		for (x=0; x<largeurImage; x++)
+		{
+			for (y=0; y<hauteurImage; y++)
+			{
+				couleur = bm.getPixel(x,y);
+				if((Color.red(couleur)*0.3+Color.green(couleur)*0.59+Color.blue(couleur)*0.11) > SEUIL)
+					intensite = 255;
+				else
+					intensite = 0;
+				this.plan.setPixel(x,y,intensite);
+			}
+		}
 		
 		caractere.put(265,'A');
 		caractere.put(73,'B');
@@ -72,78 +81,7 @@ public class CbitMap {
 		caractere.put(148,'*');
 	}
 	
-	private int recupInfo(Bitmap bm, int nbOctets, int offset)
-	{
-		int resultat=0;
-		int i;
-		for(i=nbOctets-1;i>=0;i--)
-		{
-			resultat=resultat*256+bm.getElt(i+offset);
-		}
-		return resultat;
-	}
 	
-	private void splitInto3Plan(Bitmap bm)
-	{
-		int ligne, colonne, nbOctetsPadding;
-		int posPixel=0;
-		int cpt=0;
-		nbOctetsPadding=this.largeurImage%4;
-		for(ligne=0;ligne<this.hauteurImage;ligne++)
-		{
-			for(colonne=0;colonne<this.largeurImage;colonne++)
-			{
-				this.planBleu.setPixel(posPixel, bm.getElt(cpt));
-				cpt++;
-				this.planVert.setPixel(posPixel, bm.getElt(cpt));
-				cpt++;
-				this.planRouge.setPixel(posPixel, bm.getElt(cpt));
-				posPixel++;
-				cpt++;
-			}
-			cpt+=nbOctetsPadding;
-		}
-	}
-		
-	private byte getGrayPixel(int x, int y)
-	{
-		byte r,v,b;
-		r=this.planRouge.getPixel(x, y);
-		v=this.planVert.getPixel(x, y);
-		b=this.planBleu.getPixel(x, y);
-		return (byte) (0.3*r+0.59*v+0.11*b);
-	}
-	
-	private byte getGrayPixel(int pos)
-	{
-		byte r,v,b;
-		r=this.planRouge.getPixel(pos);
-		v=this.planVert.getPixel(pos);
-		b=this.planBleu.getPixel(pos);
-		return (byte) (0.3*r+0.59*v+0.11*b);
-	}
-	
-	private void setGrayPixel(int pos, byte intensite)
-	{
-		this.planRouge.setPixel(pos,intensite);
-		this.planVert.setPixel(pos,intensite);
-		this.planBleu.setPixel(pos,intensite);
-	}
-	
-	
-	public void seuillage()
-	{
-		int i,n;
-		byte pixelCourant;
-		for(i=0;i<this.hauteurImage*this.largeurImage;i++)
-		{
-			pixelCourant=this.getGrayPixel(i);
-			if pixelCourant < 128
-				this.setGrayPixel(i,0);
-			else
-				this.setGrayPixel(i,255);
-		}
-	}
 	
 	public int decodage()
 	{
@@ -161,12 +99,12 @@ public class CbitMap {
 		char res[] = null;
 		char temp;
 		
-		while(this.getGrayPixel(i, milieu)==255)
+		while(this.plan.getPixel(i, milieu)==255)
 			i++;
 		if(premierPassage)
 		{
-			couleur=this.getGrayPixel(i,milieu);
-			while(couleur==this.getGrayPixel(i,milieu))
+			couleur = this.plan.getPixel(i, milieu);
+			while(couleur==this.plan.getPixel(i, milieu))
 			{
 				cmpPixel++;
 				i++;
@@ -180,8 +118,8 @@ public class CbitMap {
 		
 		while(cmpBarre<NB_BARRES)
 		{
-			couleur=this.getGrayPixel(i,milieu);
-			while(couleur==this.getGrayPixel(i,milieu))
+			couleur=this.plan.getPixel(i, milieu);
+			while(couleur==this.plan.getPixel(i, milieu))
 			{
 				cmpPixel++;
 				i++;
@@ -197,13 +135,13 @@ public class CbitMap {
 		i=0;
 		cmpBarre=0;
 
-		while(this.getGrayPixel(i,milieu)!=0)
+		while(this.plan.getPixel(i, milieu)!=0)
 			i++;
 
 		while(cmpBarre<NB_BARRES)
 		{
-			couleur=this.getGrayPixel(i,milieu);
-			while(this.getGrayPixel(i,milieu)==couleur)
+			couleur=this.plan.getPixel(i, milieu);
+			while(this.plan.getPixel(i, milieu)==couleur)
 			{
 				cmpPixel++;
 				i++;
@@ -231,16 +169,16 @@ public class CbitMap {
 		cmpBarre=0;
 		resBitCode = 0;
 		
-		couleur=this.getGrayPixel(i,milieu);
-		while(this.getGrayPixel(i,milieu)==couleur)
+		couleur=this.plan.getPixel(i, milieu);
+		while(this.plan.getPixel(i, milieu)==couleur)
 			i++;
 		
 		while(true) // tant qu'on n'arrive pas au caractère de fin
 		{
 			while(cmpBarre<NB_BARRES)
 			{
-				couleur=this.getGrayPixel(i,milieu);
-				while(this.getGrayPixel(i,milieu)==couleur)
+				couleur=this.plan.getPixel(i, milieu);
+				while(this.plan.getPixel(i, milieu)==couleur)
 				{
 					cmpPixel++;
 					i++;
@@ -271,8 +209,8 @@ public class CbitMap {
 			}
 			resBitCode=0;
 			cmpBarre=0;
-			couleur=this.getGrayPixel(i,milieu);
-			while(this.getGrayPixel(i,milieu)==couleur)
+			couleur=this.plan.getPixel(i, milieu);
+			while(this.plan.getPixel(i, milieu)==couleur)
 				i++;
 		}
 		
