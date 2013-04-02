@@ -1,6 +1,7 @@
 package com.iutval.projetT.gestiondesstocks.in;
 
-public class Bitmap {
+public class Bitmap 
+{
 	byte img[];
 	
 	public Bitmap(byte tab[])
@@ -12,5 +13,4 @@ public class Bitmap {
 	{
 		return this.img[i];
 	}
-
 }

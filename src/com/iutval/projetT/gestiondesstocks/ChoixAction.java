@@ -3,6 +3,7 @@ package com.iutval.projetT.gestiondesstocks;
 import android.os.Bundle;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -30,6 +31,7 @@ public class ChoixAction extends FragmentActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
+		Log.d("ChoixAction.class","coucou");
 		// Initializations
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_choix_action);
@@ -39,7 +41,7 @@ public class ChoixAction extends FragmentActivity
 		// Get argument from previous activity (Article reference)
 		Intent intent = getIntent();
 		this.art.setId(intent.getExtras().getInt("refArt"));
-
+		
 		// Run thread for handle receives' informations in database
 		getJSON = new JSONThread(this.art.getId(), this);
 		getJSON.start();		

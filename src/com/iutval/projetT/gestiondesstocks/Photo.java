@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 
@@ -20,7 +21,7 @@ import android.hardware.Camera.AutoFocusCallback;
  * It detects camera, and launch it for identifying barCode.
  * @author Alexandre Guyon
  */
-public class Photo extends Activity 
+public class Photo extends Activity implements Camera.PictureCallback
 {
 	//******************** Variable ********************
 
@@ -34,21 +35,32 @@ public class Photo extends Activity
 	 */
 	private Preview preview = null;	
 	
-	/**
-	 * The pictures took with camera
-	 */
-	private CamPicture pic = null;
+	private int refArt;	
 
 	//******************** State ********************
 
+	public void onPictureTaken(byte[] data, Camera camera) 
+	{
+		// Send it to algorithm
+		if(data != null)
+		{
+			Log.d("Photo.class","Dans l'algo des IN, photo : " + data);
+			Log.d("Photo.class","Dans l'algo des IN, photo : " + data.length);
+			//data.(byte[]) collection.toArray(new byte[collection.size()])
+			/*android.graphics.Bitmap bp = BitmapFactory.decodeByteArray(data, 0, data.length);
+			Bitmap bitmap = new Bitmap(bp);
+			CbitMap d = new CbitMap(bitmap);
+			this.refArt = Integer.parseInt(d.decodage().toString());*/
+		}
+		camera.release();
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		// Initialization
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_photo); // TODO Do boot screen
-		
-		this.pic = new CamPicture();
+		setContentView(R.layout.activity_photo);
 	}
 
 	@Override
@@ -78,6 +90,7 @@ public class Photo extends Activity
 		//camera.stopPreview();
 		//camera.release();
 	}
+	
 
 	//*********************** Button *********************
 
@@ -87,32 +100,25 @@ public class Photo extends Activity
 	 */
 	public void capture(View view)
 	{
-		// Variable
-		byte[] photo;
-		int refArt = 0;
-
-		
+		Log.d("Photo.class","Bouton appuyé");
+		/*
 		camera.autoFocus(new AutoFocusCallback() 
 		{
 		    @Override
 		    public void onAutoFocus(boolean success, Camera camera)
 		    {
+		    	Log.d("Photo.class","In focus");
 		    	camera.takePicture(null, null, pic);
+		    	Log.d("Photo.class","Photo prise");
 		    }
-		});
-		
+		});*/
 		
 		// Took photo
-		
-		photo = this.pic.getData();
+		camera.takePicture(null, null, Photo.this);
 
+		Log.d("Photo.class","Apres photo");
 		
-		if(photo == null)
-			Log.d("Photo.class", "coucou");
-		// Send it to algorithm 
-		Bitmap bitmap = new Bitmap(photo);
-		CbitMap d = new CbitMap(bitmap);
-		refArt = Integer.parseInt(d.decodage().toString());
+		
 		//refArt = (int) (Math.random() * 10);
 		Toast.makeText(getApplicationContext(), "id = " + refArt, Toast.LENGTH_SHORT).show(); // TODO Debug
 

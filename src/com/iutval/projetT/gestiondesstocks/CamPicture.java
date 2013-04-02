@@ -14,14 +14,13 @@ public class CamPicture implements Camera.PictureCallback
 	 */
 	private byte[] data;
 	
-	
 	/**
 	 * Get the picture from the camera
 	 */
 	@Override
     public void onPictureTaken(byte[] data, Camera camera)
 	{
-		Log.d("CamPicture.class","beuh");
+		Log.d("CamPicture.class","Photo prise CamPicture.callback");
 		this.data = data;
 	}
 	

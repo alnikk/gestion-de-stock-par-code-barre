@@ -263,8 +263,6 @@ public class CbitMap {
 			}
 		}
 		
-		//Log.d("CbitMap.class", "coucou");
-		
 		return res;
 	}
 	
