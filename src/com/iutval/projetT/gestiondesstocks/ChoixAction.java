@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * This class get informations about product
@@ -129,5 +130,10 @@ public class ChoixAction extends FragmentActivity
 		SupprProduit suppr = new SupprProduit(this.art.getId());
 		suppr.show(getSupportFragmentManager(),"suppr");
 		//finish();
+	}
+	
+	public void statP(View view)
+	{
+		Toast.makeText(getApplicationContext(), R.string.toastConstruction, Toast.LENGTH_SHORT).show();
 	}
 }

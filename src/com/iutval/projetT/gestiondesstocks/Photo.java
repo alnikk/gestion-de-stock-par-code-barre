@@ -2,10 +2,7 @@ package com.iutval.projetT.gestiondesstocks;
 
 import java.io.IOException;
 
-import com.iutval.projetT.gestiondesstocks.in.CbitMap;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -13,8 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.Parameters;
@@ -61,6 +56,7 @@ public class Photo extends Activity implements Camera.PictureCallback, SurfaceHo
 		Camera.Parameters param = camera.getParameters();
 		param.setSceneMode(Parameters.SCENE_MODE_BARCODE);
 		param.setFocusMode(Parameters.FOCUS_MODE_AUTO);
+		camera.setParameters(param);
 		
 		camera.startPreview();
 		
@@ -75,11 +71,9 @@ public class Photo extends Activity implements Camera.PictureCallback, SurfaceHo
 					    @Override
 					    public void onAutoFocus(boolean success, Camera camera)
 					    {
-					    	Log.d("Main.class","Dans autofocus");
 					    	camera.takePicture(null, null, Photo.this);
 					    }
 					});
-					Log.d("Main.class","Apres takePic");
 				}
 			}
 		});
@@ -88,11 +82,53 @@ public class Photo extends Activity implements Camera.PictureCallback, SurfaceHo
 	}
 	
 	@Override
-	protected void onDestroy() 
+	protected void onStop() 
 	{
-		// stoppreview
 		camera.release();
-		super.onDestroy();
+		camera = null;
+		super.onStop();
+	}
+	
+	@Override
+	protected void onRestart() 
+	{
+		super.onRestart();
+		if(camera == null)
+		{
+			camera = Camera.open();
+			
+			camera.setDisplayOrientation(90);
+			
+			Camera.Parameters param = camera.getParameters();
+			param.setSceneMode(Parameters.SCENE_MODE_BARCODE);
+			param.setFocusMode(Parameters.FOCUS_MODE_AUTO);
+			camera.setParameters(param);
+			
+			camera.startPreview();
+			
+			camera.startPreview();
+		}
+	}
+	
+	@Override
+	protected void onResume() 
+	{	
+		super.onResume();
+		if(camera == null)
+		{
+			camera = Camera.open();
+			
+			camera.setDisplayOrientation(90);
+			
+			Camera.Parameters param = camera.getParameters();
+			param.setSceneMode(Parameters.SCENE_MODE_BARCODE);
+			param.setFocusMode(Parameters.FOCUS_MODE_AUTO);
+			camera.setParameters(param);
+			
+			camera.startPreview();
+			
+			camera.startPreview();
+		}
 	}
 
 
@@ -134,11 +170,8 @@ public class Photo extends Activity implements Camera.PictureCallback, SurfaceHo
 	@Override
 	public void onPictureTaken(byte[] data, Camera camera) 
 	{
-		Log.d("Class.class", "Data " + data);
-		
-		
-		Bitmap photo = BitmapFactory.decodeByteArray(data, 0, data.length);
-		
+		// Conversion de l'image JPEG en Bitmap
+		/*Bitmap photo = BitmapFactory.decodeByteArray(data, 0, data.length);
 		CbitMap d = new CbitMap(photo);
 		d.start();
 		try {
@@ -147,9 +180,10 @@ public class Photo extends Activity implements Camera.PictureCallback, SurfaceHo
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.refArt = d.getRes();
+		this.refArt = d.getRes();*/
+		this.refArt = (int)(Math.random()*10);
 		camera.startPreview();
-		Toast.makeText(getApplicationContext(), R.string.toastIdDecode + refArt, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getApplicationContext(), R.string.toastIdDecode + refArt, Toast.LENGTH_SHORT).show();
 	}
 	
 	
@@ -157,9 +191,16 @@ public class Photo extends Activity implements Camera.PictureCallback, SurfaceHo
 	
 	public void capture(View view)
 	{
-		Intent intent = new Intent(getApplicationContext(), ChoixAction.class);
-		intent.putExtra("refArt", refArt);
-		startActivity(intent);
+		if(refArt != 0)
+		{
+			Intent intent = new Intent(getApplicationContext(), ChoixAction.class);
+			intent.putExtra("refArt", refArt);
+			startActivity(intent);
+		}
+		else
+		{
+			Toast.makeText(getApplicationContext(), R.string.toastPhoto, Toast.LENGTH_LONG).show();
+		}
 	}
 
 }

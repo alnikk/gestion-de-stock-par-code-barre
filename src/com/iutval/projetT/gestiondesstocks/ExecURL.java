@@ -17,7 +17,7 @@ public class ExecURL extends Thread
 	 * Script's address. 
 	 */
 	//private static final String URL = "http://alexgus.no-ip.info/android/script.php";
-	private static final String URL = "http://192.168.1.20/android/script.php?";
+	private static final String URL = "http://gigondas.iut-valence.fr/~gesstock/android/script.php?";
 	
 	//********************** Variable *******************
 	/**

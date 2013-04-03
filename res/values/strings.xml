@@ -10,6 +10,11 @@
     <string name="bt_capture">Sortir du mode photo et valider cette identifiant</string>
     
     <string name="choix_action_title">Choisissez une action</string>
+    <string name="choix_action_see">Consulter le stock</string>
+    <string name="choix_action_add">Ajouter du stock</string>
+    <string name="choix_action_removal">Supprimer du stock</string>
+    <string name="choix_action_delete">Supprimmer produit</string>
+    <string name="choix_action_stat">Statistique</string>
     
     <string name="new_art_add">Ajouter une référence</string>
     <string name="new_art_ref">Réference</string>
@@ -43,6 +48,7 @@
     <string name="supprQte">Entrez une quantité à supprimer</string>
     <string name="toastPhoto">Appuyer sur l\'ecran pour prendre une photo du code à barres</string>
     <string name="toastIdDecode">L\'identifiant de l\'article est </string>
+    <string name="toastConstruction">En construction</string>
     
     
     <string name="title_activity_open_id">OpenId</string>

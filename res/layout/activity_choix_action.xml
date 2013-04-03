@@ -62,6 +62,53 @@
         android:layout_below="@+id/imageButton3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
-        android:src="@drawable/ic_stat" />
+        android:src="@drawable/ic_stat"
+        android:onClick="statP" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_marginLeft="-30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageButton2"
+        android:layout_alignLeft="@+id/imageButton1"
+        android:text="@string/choix_action_see"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_marginLeft="-10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageButton2"
+        android:layout_alignLeft="@+id/imageButton2"
+        android:text="@string/choix_action_add" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_marginLeft="-30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton3"
+        android:layout_centerVertical="true"
+        android:text="@string/choix_action_removal" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="-10dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignLeft="@+id/imageButton4"
+        android:text="@string/choix_action_delete" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageButton5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-38dp"
+        android:text="@string/choix_action_stat" />
 
 </RelativeLayout>

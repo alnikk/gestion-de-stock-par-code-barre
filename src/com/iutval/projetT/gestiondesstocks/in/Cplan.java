@@ -1,6 +1,5 @@
 package com.iutval.projetT.gestiondesstocks.in;
 
-import android.util.Log;
 
 public class Cplan {
 
